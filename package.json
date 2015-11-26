@@ -1,6 +1,6 @@
 {
   "name": "brainboost",
-  "description": "An app to vote on and shape ideas,
+  "description": "An app to vote on and shape ideas",
   "version": "1.0.0",
   "engines": {
     "node": "4.2.2"
