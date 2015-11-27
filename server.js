@@ -19,6 +19,7 @@ mongoose.connect(uristring, function (err, res) {
 
 function change() {
   var boostSchema = new mongoose.Schema({
+    type: String,
     content: {
       title: String,
       idea: { type: String, trim: true }
@@ -31,8 +32,7 @@ function change() {
     date: {type: Date, default: Date.now }
   });
 
-  // Compiles the schema into a model, opening (or creating, if
-  // nonexistent) the 'PowerUsers' collection in the MongoDB database
+  // Compiles the schema into a model
   var boosts = mongoose.model('boosts', boostSchema);
 
   // Clear out old data
@@ -42,6 +42,7 @@ function change() {
 
   // Creating one user.
   var first = new boosts({
+    type: "boost",
     content: { title: 'Voting App', idea: 'This idea I had is a voting app called Brain Boost' },
     author: { name: "Herman Fassett", email: "hermanfassett@gmail.com" },
     votes: 45,
@@ -52,15 +53,28 @@ function change() {
 
   // Creating more users manually
   var second = new boosts({
+    type: "brain",
     content: { title: 'Stock Market app', idea: 'This idea I had is a financial app called finactal using...' },
     author: { name: "Jon Fassett", email: "fassett@fairpoint.net" },
     votes: 5,
     date: new Date()
   });
   second.save(function (err) {if (err) console.log ('Error on save!')});
-  app.get("/:boosts", function(req, res) {
-    var data;
+  app.get("/:all", function(req, res) {
     boosts.find({}, function(err, obj) {
+      console.log("/:all\n" + obj);
+      res.json(obj);
+    });
+  });
+  app.get("/:boosts", function(req, res) {
+    boosts.find({type: "boost"}, function(err, obj) {
+      console.log("/:boosts\n" + obj)
+      res.json(obj);
+    });
+  });
+  app.get("/:brains", function(req, res) {
+    boosts.find({type: "brain"}, function(err, obj) {
+      console.log("/:brains\n" + obj)
       res.json(obj);
     });
   });

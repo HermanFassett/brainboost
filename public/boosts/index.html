@@ -1,11 +1,11 @@
 <!DOCTYPE>
-<html ng-app="brainboost">
+<html ng-app="boost">
 <head>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
-  <title>Brain Boost!</title>
+  <title>Brain Boost! - Boosts</title>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -20,9 +20,9 @@
       </div>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="..">Home</a></li>
+          <li><a href="..">Home</a></li>
           <li><a href="/brains">Brains</a></li>
-          <li><a href="/boosts">Boosts</a></li>
+          <li class="active"><a href="/boosts">Boosts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -31,9 +31,9 @@
       </div>
     </div>
   </nav>
-  <div class="container" ng-controller="AppCtrl">
+  <div class="container" ng-controller="BoostsCtrl">
     <h1>Brain Boost</h1>
-    <input ng-model="test">
+    <input ng-model="test" ng-keypress="reload()">
     {{test}}
     <div ng-repeat="boost in boosts">
       <h1>{{boost.content.title}}</h1>

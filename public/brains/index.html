@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html ng-app="brainboost">
+<html ng-app="brain">
 <head>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
@@ -20,8 +20,8 @@
       </div>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="..">Home</a></li>
-          <li><a href="/brains">Brains</a></li>
+          <li><a href="..">Home</a></li>
+          <li class="active"><a href="/brains">Brains</a></li>
           <li><a href="/boosts">Boosts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -31,7 +31,7 @@
       </div>
     </div>
   </nav>
-  <div class="container" ng-controller="AppCtrl">
+  <div class="container" ng-controller="BrainsCtrl">
     <h1>Brain Boost</h1>
     <input ng-model="test">
     {{test}}
