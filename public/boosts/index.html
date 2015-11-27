@@ -33,7 +33,7 @@
   </nav>
   <div class="container" ng-controller="BoostsCtrl">
     <h1>Brain Boost</h1>
-    <input ng-model="test" ng-keypress="reload()">
+    <input ng-model="test">
     {{test}}
     <div ng-repeat="boost in boosts">
       <h1>{{boost.content.title}}</h1>
