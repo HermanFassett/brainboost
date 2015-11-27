@@ -62,19 +62,16 @@ function change() {
   second.save(function (err) {if (err) console.log ('Error on save!')});
   app.get("/:all", function(req, res) {
     boosts.find({}, function(err, obj) {
-      console.log("/:all\n" + obj);
       res.json(obj);
     });
   });
-  app.get("/:boosts", function(req, res) {
+  app.get("/boosts/:boosts", function(req, res) {
     boosts.find({type: "boost"}, function(err, obj) {
-      console.log("/:boosts\n" + obj)
       res.json(obj);
     });
   });
-  app.get("/:brains", function(req, res) {
+  app.get("/brains/:brains", function(req, res) {
     boosts.find({type: "brain"}, function(err, obj) {
-      console.log("/:brains\n" + obj)
       res.json(obj);
     });
   });
