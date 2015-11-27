@@ -1,9 +1,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var app = module.exports = express();
-// var mongojs = require("mongojs");
-// var db = mongojs("boosts", ["boosts"]);
-
 // Load html
 app.use(express.static(__dirname + "/public"));
 
@@ -61,11 +58,12 @@ function change() {
     date: new Date()
   });
   second.save(function (err) {if (err) console.log ('Error on save!')});
-  exports.boosts = function(req, res) {
+  app.get("/:boosts", function(req, res) {
+    var data;
     boosts.find({}, function(err, obj) {
-      res.json(obj)
+      res.json(obj);
     });
-  };
+  });
 }
 // In case the browser connects before the database is connected, the
 // user will see this message.

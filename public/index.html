@@ -13,9 +13,9 @@
     <input ng-model="test">
     {{test}}
     <div ng-repeat="boost in boosts">
-      <h1>{{boost.title}}</h1>
-      <p>{{boost.snippet}}</p>
-      <blockquote>{{boost.author}}</blockquote>
+      <h1>{{boost.content.title}}</h1>
+      <p>{{boost.content.idea}}</p>
+      <blockquote>{{boost.author.name}}</blockquote>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
