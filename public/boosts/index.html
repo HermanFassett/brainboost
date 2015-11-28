@@ -3,6 +3,7 @@
 <head>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://bootswatch.com/yeti/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
   <title>Brain Boost! - Boosts</title>
 </head>
 <body>
@@ -23,21 +24,24 @@
           <li class="active"><a href="/boosts">Boosts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
       </div>
     </div>
   </nav>
   <div class="container" ng-controller="BoostsCtrl">
-    <h1>Brain Boost</h1>
-    <input ng-model="test">
-    {{test}}
-    <div ng-repeat="boost in boosts">
-      <h1>{{boost.content.title}}</h1>
+    <h1>Boosts</h1>
+    <div ng-repeat="boost in boosts" class="post">
+      <h1>+{{boost.votes}} - {{boost.content.title}}</h1>
       <p>{{boost.content.idea}}</p>
       <blockquote>{{boost.author.name}}</blockquote>
+      <div ng-repeat="comment in boost.comments">
+        <h4>{{comment.comment}}</h4><h6>~{{comment.author}}</h6>
+      </div>
     </div>
+  </div>
+  <div class="container">
     <hr>
     <footer class="footer">
       <p class="text-muted">&copy; <script>document.write(new Date().getFullYear())</script> <a href="http://hermanfassett.me">Herman Fassett</a></p>

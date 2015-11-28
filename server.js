@@ -29,7 +29,8 @@ function change() {
       email: String
     },
     votes: Number,
-    date: {type: Date, default: Date.now }
+    date: {type: Date, default: Date.now },
+    comments: {type: Array, default: []}
   });
 
   // Compiles the schema into a model
@@ -43,28 +44,42 @@ function change() {
   // Creating one user.
   var first = new boosts({
     type: "boost",
-    content: { title: 'Voting App', idea: 'This idea I had is a voting app called Brain Boost' },
+    content: { title: "Voting App", idea: "An awesome way to get into MEAN stack dev is to make a voting app!" },
     author: { name: "Herman Fassett", email: "hermanfassett@gmail.com" },
     votes: 45,
-    date: new Date()
+    date: new Date(),
+    comments: [{author: "Ryer", comment: "Wow, thanks! Great idea"},
+               {author: "Anonymous", comment: "Hmm, sounds okay, but sounds like it could be a big waste of time"}]
   });
   // Saving it to the database.
   first.save(function (err) {if (err) console.log ('Error on save!')});
+  var second = new boosts({
+    type: "boost",
+    content: { title: "Quote Machine", idea: "A great way to practice your css and api calls, make a random quote machine!" },
+    author: { name: "Herman Fassett", email: "hermanfassett@gmail.com" },
+    votes: 15,
+    date: new Date(),
+    comments: [{author: "Jon", comment: "Yeah, that's fun, I made one myself."},
+               {author: "Peter", comment: "Great! I made one on freecodecamp"}]
+  });
+  // Saving it to the database.
+  second.save(function (err) {if (err) console.log ('Error on save!')});
 
   // Creating more users manually
-  var second = new boosts({
+  var third = new boosts({
     type: "brain",
-    content: { title: 'Stock Market app', idea: 'This idea I had is a financial app called finactal using...' },
-    author: { name: "Jon Fassett", email: "fassett@fairpoint.net" },
+    content: { title: "Stock Market app", idea: "This idea I had is a financial app called finactal using fractals to help predict stocks" },
+    author: { name: "Jon", email: "jon@me.com" },
     votes: 5,
-    date: new Date()
+    date: new Date(),
+    comments: [{author: "Herman Fassett", comment: "Sounds like a waste of time to me!"}]
   });
-  second.save(function (err) {if (err) console.log ('Error on save!')});
-  app.get("/:all", function(req, res) {
-    boosts.find({}, function(err, obj) {
-      res.json(obj);
-    });
-  });
+  third.save(function (err) {if (err) console.log ('Error on save!')});
+  // app.get("/:all", function(req, res) {
+  //   boosts.find({}, function(err, obj) {
+  //     res.json(obj);
+  //   });
+  // });
   app.get("/boosts/:boosts", function(req, res) {
     boosts.find({type: "boost"}, function(err, obj) {
       res.json(obj);
