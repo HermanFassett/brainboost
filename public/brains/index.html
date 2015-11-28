@@ -3,6 +3,7 @@
 <head>
   <link rel="stylesheet" href="https://bootswatch.com/yeti/bootstrap.min.css">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
   <title>Brain Boost!</title>
 </head>
 <body>
@@ -30,8 +31,8 @@
     </div>
   </nav>
   <div class="container" ng-controller="BrainsCtrl">
-    <h1>Brains</h1>
-    <div ng-repeat="boost in boosts" class="post">
+    <h1 class="animated rollin">Brains</h1>
+    <div ng-repeat="boost in boosts" class="post animated zoomInUp">
       <h1>+{{boost.votes}} - {{boost.content.title}}</h1>
       <p>{{boost.content.idea}}</p>
       <blockquote>{{boost.author.name}}</blockquote>
