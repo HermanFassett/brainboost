@@ -36,8 +36,13 @@
       <h1>+{{boost.votes}} - {{boost.content.title}}</h1>
       <p>{{boost.content.idea}}</p>
       <blockquote>{{boost.author.name}}</blockquote>
-      <div ng-repeat="comment in boost.comments">
-        <h4>{{comment.comment}}</h4><h6>~{{comment.author}}</h6>
+      <div class="well">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="show" ng-value="true">Comments</label>
+        </div>
+        <div ng-repeat="comment in boost.comments | limitTo:10" ng-show="show">
+          <h4>{{comment.comment}}</h4><h6>~{{comment.author}}</h6>
+        </div>
       </div>
     </div>
   </div>
