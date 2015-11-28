@@ -15,7 +15,7 @@
   <!-- Title -->
   <title>Brain Boost! - Users</title>
 </head>
-<body ng-controller="UsersCtrl">
+<body ng-controller="UserCtrl">
   <nav class="navbar navbar-inverse animated fadeInDown">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -42,21 +42,14 @@
   </nav>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="animated rotateInDownLeft">Users</h1>
+      <h1 class="animated rotateInDownLeft">{{username.username}}</h1>
     </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Sort by <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="" ng-click="order('joinDate')">Join Date</a></li>
-        <li><a href="" ng-click="order('username')">Username</a></li>
-      </ul>
-    </div>
-    <hr>
-    <div class="animated fadeIn post" ng-repeat="user in users | orderBy:predicate:reverse">
-      {{user.username}}
-      <h6>joined {{user.joinDate | date : format : timezone}}</h6>
+    <h4 class="text-faded">Join Date: {{username.joinDate | date : format : timezone}}</h4>
+    <h4 class="text-faded">Email: {{username.email}}</h4>
+    <h4 class="text-faded">ID: {{username.id}}</h4>
+    <h4>Posts:</h4>
+    <div class="post" ng-repeat="post in posts">
+      {{post.content.title}}
     </div>
   </div>
   <div class="container">

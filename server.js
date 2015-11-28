@@ -11,7 +11,7 @@ app.get("/login/:user", function(req, res) {
   res.send(username);
 });
 app.post("/login/:user", function(req, res) {
-  username = req.body.username;
+  username = req.body;
 });
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
@@ -119,6 +119,11 @@ function change() {
         }
       });
     }
+  });
+  app.get("/:all", function(req, res) {
+    boosts.find({}, function(err, obj) {
+      res.json(obj);
+    });
   });
   app.get("/boosts/:boosts", function(req, res) {
     boosts.find({type: "boost"}, function(err, obj) {

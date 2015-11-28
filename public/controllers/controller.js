@@ -2,13 +2,11 @@ var brainboost = angular.module("brainboost", []);
 brainboost.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
   $http.get("/login/:user").success(function(response) {
     $scope.username = response;
-    console.log($scope.username);
   });
 }]);
 brainboost.controller("SignupCtrl", ['$scope', '$http', function($scope, $http) {
   $http.get("/login/:user").success(function(response) {
     $scope.username = response;
-    console.log($scope.username);
   });
   $scope.signup = function() {
     $scope.inputuser = { username: $scope.user.username, email: $scope.user.email, password: $scope.user.password, joinDate: new Date()}
@@ -28,7 +26,6 @@ brainboost.controller("SignupCtrl", ['$scope', '$http', function($scope, $http) 
 brainboost.controller("LoginCtrl", ['$scope', '$http', function($scope, $http) {
   $http.get("/login/:user").success(function(response) {
     $scope.username = response;
-    console.log($scope.username);
   });
   $scope.login = function() {
     $scope.inputuser = { type: "login", email: $scope.user.email, password: $scope.user.password}
@@ -39,10 +36,16 @@ brainboost.controller("LoginCtrl", ['$scope', '$http', function($scope, $http) {
         $scope.success = "";
       }
       else {
-        $http.post("/login/:user", { username: response[0].username});
+        console.log(response[0]);
+        $http.post("/login/:user", {
+          email: response[0].email,
+          username: response[0].username,
+          id: response[0]._id,
+          joinDate: response[0].joinDate
+        });
         $scope.error = "";
         $scope.success = "Login as " + response[0].username + " successful";
-        console.log(response);
+        //window.location.href="/user";
       }
     });
   }
