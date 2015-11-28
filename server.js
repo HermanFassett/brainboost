@@ -6,7 +6,7 @@ app.use(express.static(__dirname + "/public"));
 
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
-                "mongodb://hermanfassett:gamergerm@ds059694.mongolab.com:59694/heroku_g928tnf0";
+                "mongodb://hermanfassett:password@ds059694.mongolab.com:59694/heroku_g928tnf0";
 
 // Connect to db
 mongoose.connect(uristring, function (err, res) {
