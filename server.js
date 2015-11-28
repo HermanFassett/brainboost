@@ -1,9 +1,10 @@
 var express = require("express");
 var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
 var app = module.exports = express();
 // Load html
 app.use(express.static(__dirname + "/public"));
-
+app.use(bodyParser.json());
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
                 "mongodb://hermanfassett:password@ds059694.mongolab.com:59694/heroku_g928tnf0";
@@ -32,15 +33,23 @@ function change() {
     date: {type: Date, default: Date.now },
     comments: {type: Array, default: []}
   });
-
-  // Compiles the schema into a model
-  var boosts = mongoose.model('boosts', boostSchema);
-
-  // Clear out old data
-  boosts.remove({}, function(err) {
-    if (err) console.log ('error deleting old data.');
+  var userSchema = new mongoose.Schema({
+    username: String,
+    email: String,
+    password: String,
+    joinDate: Date
   });
 
+  // Compile the schemas into models
+  var boosts = mongoose.model("boosts", boostSchema);
+  var users = mongoose.model("users", userSchema);
+  var fir = new users({
+    username: "Ryer",
+    email: "ryer@gmail.com",
+    password: "passxd",
+    joinDate: new Date()
+  });
+  //fir.save(function(err) {if(err) console.log('Error on save!')});
   // Creating one user.
   var first = new boosts({
     type: "boost",
@@ -52,7 +61,7 @@ function change() {
                {author: "Anonymous", comment: "Hmm, sounds okay, but sounds like it could be a big waste of time"}]
   });
   // Saving it to the database.
-  first.save(function (err) {if (err) console.log ('Error on save!')});
+  //first.save(function (err) {if (err) console.log ('Error on save!')});
   var second = new boosts({
     type: "boost",
     content: { title: "Quote Machine", idea: "A great way to practice your css and api calls, make a random quote machine!" },
@@ -63,7 +72,7 @@ function change() {
                {author: "Peter", comment: "Great! I made one on freecodecamp"}]
   });
   // Saving it to the database.
-  second.save(function (err) {if (err) console.log ('Error on save!')});
+  //second.save(function (err) {if (err) console.log ('Error on save!')});
 
   // Creating more users manually
   var third = new boosts({
@@ -74,12 +83,35 @@ function change() {
     date: new Date(),
     comments: [{author: "Herman Fassett", comment: "Sounds like a waste of time to me!"}]
   });
-  third.save(function (err) {if (err) console.log ('Error on save!')});
-  // app.get("/:all", function(req, res) {
-  //   boosts.find({}, function(err, obj) {
-  //     res.json(obj);
-  //   });
-  // });
+  //third.save(function (err) {if (err) console.log ('Error on save!')});
+  app.get("/users/:users", function(req, res) {
+    users.find({}, function(err, obj) {
+      res.json(obj);
+    });
+  });
+  app.post("/users/:users", function(req, res) {
+    if (req.body.type === "login") {
+      users.find({$and: [{email: req.body.email}, {password: req.body.password}]}, function(err, obj) {
+        if (obj.length > 0) {
+          res.json(obj);
+        }
+        else { res.send("fail");}
+      })
+    }
+    else {
+      users.find({$or: [{username: req.body.username}, {email: req.body.email}]}, function(err, obj) {
+        if (obj.length > 0) {
+          res.send("fail");
+        }
+        else {
+          users.create(req.body, function(err, data) {
+            if (err) console.log(err);
+          });
+          res.send("success");
+        }
+      });
+    }
+  });
   app.get("/boosts/:boosts", function(req, res) {
     boosts.find({type: "boost"}, function(err, obj) {
       res.json(obj);

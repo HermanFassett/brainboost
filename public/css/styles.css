@@ -13,3 +13,9 @@
   max-height: 500px;
   overflow-y: auto;
 }
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+.ng-valid.ng-dirty {
+  border-color: green
+}

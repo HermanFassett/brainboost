@@ -43,7 +43,17 @@
   </nav>
   <div class="container" ng-controller="BoostsCtrl">
     <h1 class="animated rollin">Boosts</h1>
-    <div ng-repeat="boost in boosts" class="post animated zoomInUp">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort by <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="" ng-click="order('votes')">Votes</a></li>
+        <li><a href="" ng-click="order('date')">Date</a></li>
+      </ul>
+    </div>
+    <hr>
+    <div ng-repeat="boost in boosts | orderBy:predicate:reverse" class="post animated zoomInUp">
       <h1>+{{boost.votes}} - {{boost.content.title}}</h1>
       <p>{{boost.content.idea}}</p>
       <blockquote>{{boost.author.name}}</blockquote>
