@@ -2,9 +2,17 @@ var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var app = module.exports = express();
+var username = "!";
 // Load html
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
+// Get current user
+app.get("/login/:user", function(req, res) {
+  res.send(username);
+});
+app.post("/login/:user", function(req, res) {
+  username = req.body.username;
+});
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
                 "mongodb://hermanfassett:password@ds059694.mongolab.com:59694/heroku_g928tnf0";

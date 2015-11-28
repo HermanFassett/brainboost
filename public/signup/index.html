@@ -15,7 +15,7 @@
   <!-- Title -->
   <title>Brain Boost!</title>
 </head>
-<body>
+<body ng-controller="SignupCtrl">
   <nav class="navbar navbar-inverse animated fadeInDown">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -33,13 +33,14 @@
           <li><a href="/boosts">Boosts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li ng-show="username == '!'"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li ng-show="username == '!'"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li ng-show="username != '!'"><a href="/user"><span class="glyphicon glyphicon-chevron-down"></span> {{username}}</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  <div class="container" ng-controller="SignupCtrl">
+  <div class="container">
     <div class="jumbotron">
       <h1 class="animated rotateInDownLeft">Signup!</h1>
       <hr>
