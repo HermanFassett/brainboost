@@ -36,7 +36,6 @@ brainboost.controller("LoginCtrl", ['$scope', '$http', function($scope, $http) {
         $scope.success = "";
       }
       else {
-        console.log(response[0]);
         $http.post("/login/:user", {
           email: response[0].email,
           username: response[0].username,
@@ -45,7 +44,7 @@ brainboost.controller("LoginCtrl", ['$scope', '$http', function($scope, $http) {
         });
         $scope.error = "";
         $scope.success = "Login as " + response[0].username + " successful";
-        //window.location.href="/user";
+        window.location.href="/user";
       }
     });
   }
