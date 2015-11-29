@@ -36,6 +36,7 @@
           <li ng-show="username == '!'"><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li ng-show="username == '!'"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <li ng-show="username != '!'"><a href="/user"><span class="glyphicon glyphicon-chevron-down"></span> {{username.username}}</a></li>
+          <li ng-show="username != '!'"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
       </div>
     </div>
@@ -63,15 +64,6 @@
           <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
           <div class="col-sm-10">
             <input type="password" name="password" class="form-control" ng-minlength="6" id="inputPassword3" placeholder="Password" ng-model="user.password" title="Password" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Remember me
-              </label>
-            </div>
           </div>
         </div>
         <div class="form-group">

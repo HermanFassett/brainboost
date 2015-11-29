@@ -1,6 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var path = require("path");
 var app = module.exports = express();
 var username = "!";
 // Load html
@@ -12,6 +13,10 @@ app.get("/login/:user", function(req, res) {
 });
 app.post("/login/:user", function(req, res) {
   username = req.body;
+});
+app.get("/logout", function(req, res) {
+  username = "!";
+  res.sendFile(path.join(__dirname + "/public/login/index.html"));
 });
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
