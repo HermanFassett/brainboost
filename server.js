@@ -1,9 +1,25 @@
 var express = require("express");
 var mongoose = require("mongoose");
-var bodyParser = require("body-parser");
-var path = require("path");
+var bodyParser = require("body-parser"),
+    path = require("path"),
+    cookieParser = require('cookie-parser'),
+    methodOverride = require('method-override'),
+    session = require('express-session'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    TwitterStrategy = require('passport-twitter'),
+    GoogleStrategy = require('passport-google'),
+    FacebookStrategy = require('passport-facebook');
 var app = module.exports = express();
 var username = "!";
+
+app.use(logger('combined'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(session({secret: 'supernova', saveUninitialized: true, resave: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 // Load html
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());

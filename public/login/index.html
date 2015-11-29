@@ -45,7 +45,13 @@
     <div class="jumbotron">
       <h1 class="animated rotateInDownLeft">Login</h1>
       <hr>
-      <form class="form-horizontal" name="loginForm" ng-submit="loginForm.$valid && login()">
+      <center>
+        <a data-toggle="collapse" href="#loginlocal" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-user"></span> Login with Email</a>
+        <a href="/auth/twitter" class="btn btn-info" role="button"><span class="glyphicon glyphicon-user"></span> Login with Twitter</a>
+        <a href="/auth/google" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-user"></span> Login with Google</a>
+        <a href="/auth/facebook" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-user"></span> Login with Facebook</a>
+      </center>
+      <form class="form-horizontal collapse" id="loginlocal" name="loginForm" ng-submit="loginForm.$valid && login()">
         <h3 class="text-danger">{{error}}</h3>
         <h3 class="text-success">{{success}}</h3>
         <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
