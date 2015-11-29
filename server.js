@@ -13,7 +13,6 @@ var bodyParser = require("body-parser"),
 var app = module.exports = express();
 var username = "!";
 
-app.use(logger('combined'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('X-HTTP-Method-Override'));
