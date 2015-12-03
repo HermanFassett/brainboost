@@ -1,6 +1,5 @@
 var express = require("express");
 var mongoose = require("mongoose");
-var bodyParser = require("body-parser");
 var path = require("path");
 var session = require('express-session');
 var passport = require('passport');
