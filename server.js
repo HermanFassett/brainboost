@@ -108,5 +108,5 @@ routes(app, passport);
 // user will see this message.
 var found = ['DB Connection not yet established.  Try again later.  Check the console output for error messages if this persists.'];
 
-// Listen on default port or 3000
+// Listen on default port or 5000
 app.listen(process.env.PORT || 5000);
