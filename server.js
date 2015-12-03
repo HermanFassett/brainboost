@@ -4,10 +4,10 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var session = require('express-session');
 var passport = require('passport');
-var routes = require('./app/routes/index.js');
+var routes = require('app/routes/index.js');
 var app = express();
 require('dotenv').load();
-require('app/config/passport')(passport);
+require('./app/config/passport')(passport);
 
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
