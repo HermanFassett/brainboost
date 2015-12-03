@@ -7,7 +7,7 @@ var passport = require('passport');
 var routes = require('./app/routes/index.js');
 var app = express();
 require('dotenv').load();
-require('./app/config/passport')(passport);
+require('app/config/passport')(passport);
 
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
