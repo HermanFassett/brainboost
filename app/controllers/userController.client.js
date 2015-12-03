@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
    var profileId = document.querySelector('#profile-id') || null;
