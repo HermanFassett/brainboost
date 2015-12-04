@@ -36,6 +36,7 @@
 }
 .avatar {
   width: 200px;
+  border-radius: 5px;
 }
 .avatar-sm {
   width: 25px;
