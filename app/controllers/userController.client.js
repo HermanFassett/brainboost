@@ -4,7 +4,7 @@
    var profileEmail = $('#profile-email') || null;
    var profileDate = $('#profile-date') || null;
    var profileAvatar = $('#profile-avatar') || null;
-   var profilePosts = $("#profile-posts") || null;
+   var profilePosts = $("#posts") || null;
    var navAvatar = $(".avatar-sm")[0] || null;
    var navUnauth = $(".unauth") || null;
    var navAuth = $(".auth") || null;
@@ -28,6 +28,7 @@
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
       if (profilePosts) {
+        $(profilePosts).children(":first").text(userObject.posts.shift());
         userObject.posts.forEach(function(post) {
           $(profilePosts).append("<div class='post'>" + post.content.title + "</div>");
         });
