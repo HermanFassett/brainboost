@@ -5,12 +5,12 @@
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileEmail = document.querySelector('#profile-email') || null;
    var profileDate = document.querySelector('#profile-date') || null;
-   var profilAvatar = document.querySelector('#profile-avatar') || null;
+   var profileAvatar = document.querySelector('#profile-avatar') || null;
    var displayName = document.querySelector('#display-name');
    var apiUrl = appUrl + '/api/:id';
 
    function updateHtmlElement (data, element, userProperty, pre, post) {
-      element.innerHTML = (pre)?pre:"" + data[userProperty] + (post || "");
+      element.innerHTML = data[userProperty];
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
