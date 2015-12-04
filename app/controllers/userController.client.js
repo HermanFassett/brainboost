@@ -9,18 +9,11 @@
    var displayName = document.querySelector('#display-name');
    var apiUrl = appUrl + '/api/:id';
 
-   function updateHtmlElement (data, element, userProperty, pre, post) {
-     var html = "";
-     if (pre) html += pre;
-     html += data[userProperty];
-     if (post) html += post;
-     element.innerHTML = html;
-   }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
-      if (profileUsername) updateHtmlElement(userObject.profile, profileUsername, 'name');
-      if (profileEmail) updateHtmlElement(userObject, profileEmail, 'email', "Email: ");
-      if (profileDate) updateHtmlElement(userObject, profileDate, 'joinDate', 'Join Date: ');
+      if (profileUsername) $(profileUsername).text(userObject.profile.name);
+      if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
+      if (profileDate) $(profileDate).text("Join Date: " + userObject.joinDate.getFullYear());
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
    }));
 })();

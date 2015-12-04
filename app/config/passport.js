@@ -125,7 +125,6 @@ module.exports = function (passport) {
 	          console.log('There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.');
 	          done(err);
 	        } else {
-						console.log(profile);
 	          var user = new User();
 	          user.email = profile.emails[0].value;
 	          user.google = profile.id;
