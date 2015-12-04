@@ -31,8 +31,6 @@
         userObject.posts.forEach(function(post) {
           $(profilePosts).append("<div class='post'>" + post.content.title + "</div>");
         });
-        profilePosts.forEach(function(post) {
-          $(post).text(userObject.posts);
-        });
+      }
    }));
 })();
