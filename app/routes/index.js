@@ -56,10 +56,10 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/brains.html');
 		});
 
-	app.route('/api/:id')
-		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.github);
-		});
+	// app.route('/api/:id')
+	// 	.get(isLoggedIn, function (req, res) {
+	// 		res.json(req.user.github);
+	// 	});
 
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
