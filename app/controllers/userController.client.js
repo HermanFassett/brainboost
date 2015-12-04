@@ -7,8 +7,8 @@
    var displayName = document.querySelector('#display-name');
    var apiUrl = appUrl + '/api/:id';
 
-   function updateHtmlElement (data, element, userProperty) {
-      element.innerHTML = data[userProperty];
+   function updateHtmlElement (data, element, userProperty, pre, post) {
+      element.innerHTML = pre + data[userProperty] + post;
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
@@ -17,7 +17,7 @@
       //    updateHtmlElement(userObject, profileId, 'id');
       // }
       if (profileUsername !== null) {
-         updateHtmlElement(userObject, profileUsername, 'username');
+         updateHtmlElement(userObject, profileUsername, 'name');
       }
       if (profileEmail !== null) {
          updateHtmlElement(userObject, profileEmail, 'email');

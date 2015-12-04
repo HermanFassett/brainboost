@@ -43,11 +43,10 @@
   </nav>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="animated rotateInDownLeft" id="profile-username">{{username.username}}</h1>
+      <h1 class="animated rotateInDownLeft" id="profile-username">Name</h1>
     </div>
     <h4 class="text-faded">Join Date: {{username.joinDate | date : format : timezone}}</h4>
-    <h4 class="text-faded">Email: {{username.email}}</h4>
-    <h4 class="text-faded">ID: {{username.id}}</h4>
+    <h4 class="text-faded" id="profile-email">Email:</h4>
     <h4>Posts:</h4>
     <div class="post" ng-repeat="post in posts">
       {{post.content.title}}
