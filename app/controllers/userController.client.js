@@ -10,15 +10,15 @@
    var navAuth = $(".auth") || null;
    var navUser = $("#nav-user") || null;
    var apiUrl = appUrl + '/api/:id';
-   navUnauth.each(function(a) { $(a).show() });
-   navAuth.each(function(a) { $(a).hide() });
+   navUnauth.each(function(a) { $(a).css("display", "block") });
+   navAuth.each(function(a) { $(a).css("display", "none") });
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
       if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);
       if (userObject.profile.name) {
         $(navUser).html($(navUser).html() + userObject.profile.name);
-        navUnauth.each(function(a) { $(a).hide() });
-        navAuth.each(function(a) { $(a).show() });
+        navUnauth.each(function(a) { $(a).css("display", "none") });
+        navAuth.each(function(a) { $(a).css("display", "block") });
       }
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
