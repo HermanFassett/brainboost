@@ -18,10 +18,6 @@
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
-      // updateHtmlElement(userObject, displayName, 'displayName');
-      // if (profileId !== null) {
-      //    updateHtmlElement(userObject, profileId, 'id');
-      // }
       if (profileUsername) updateHtmlElement(userObject.profile, profileUsername, 'name');
       if (profileEmail) updateHtmlElement(userObject, profileEmail, 'email', "Email: ");
       if (profileDate) updateHtmlElement(userObject, profileDate, 'joinDate', 'Join Date: ');

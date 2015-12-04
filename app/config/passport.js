@@ -1,6 +1,7 @@
 'use strict';
 
 var GitHubStrategy = require('passport-github').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 
@@ -67,27 +68,55 @@ module.exports = function (passport) {
 				});
 			});
 		}
-		// process.nextTick(function () {
-		// 	User.findOne({ github: profile.id }, function (err, user) {
-		// 		if (err) {
-		// 			return done(err);
-		// 		}
-		//
-		// 		if (user) {
-		// 			return done(null, user);
-		// 		} else {
-		// 			var newUser = new User();
-		// 			newUser.id = profile.id;
-		// 			newUser.username = profile.username;
-		// 			newUser.email = profile.email;
-		// 			newUser.save(function (err) {
-		// 				if (err) {
-		// 					throw err;
-		// 				}
-		// 				return done(null, newUser);
-		// 			});
-		// 		}
-		// 	});
-		// });
+	}));
+	passport.use(new GoogleStrategy({
+		clientID: configAuth.googleAuth.clientID,
+		clientSecret: configAuth.googleAuth.clientSecret,
+		callbackURL: configAuth.googleAuth.callbackURL
+	},
+	function(req, accessToken, refreshToken, profile, done) {
+	  if (req.user) {
+	    User.findOne({ google: profile.id }, function(err, existingUser) {
+	      if (existingUser) {
+	        console.log('There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.');
+	        done(err);
+	      } else {
+	        User.findById(req.user.id, function(err, user) {
+	          user.google = profile.id;
+	          user.tokens.push({ kind: 'google', accessToken: accessToken });
+	          user.profile.name = user.profile.name || profile.displayName;
+	          user.profile.gender = user.profile.gender || profile._json.gender;
+	          user.profile.picture = user.profile.picture || profile._json.image.url;
+	          user.save(function(err) {
+	            console.log('Google account has been linked.');
+	            done(err, user);
+	          });
+	        });
+	      }
+	    });
+	  } else {
+	    User.findOne({ google: profile.id }, function(err, existingUser) {
+	      if (existingUser) {
+	        return done(null, existingUser);
+	      }
+	      User.findOne({ email: profile.emails[0].value }, function(err, existingEmailUser) {
+	        if (existingEmailUser) {
+	          console.log('There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.');
+	          done(err);
+	        } else {
+	          var user = new User();
+	          user.email = profile.emails[0].value;
+	          user.google = profile.id;
+	          user.tokens.push({ kind: 'google', accessToken: accessToken });
+	          user.profile.name = profile.displayName;
+	          user.profile.gender = profile._json.gender;
+	          user.profile.picture = profile._json.image.url;
+	          user.save(function(err) {
+	            done(err, user);
+	          });
+	        }
+	      });
+	    });
+	  }
 	}));
 };
