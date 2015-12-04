@@ -27,6 +27,12 @@
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
-      if (profilePosts) $(profilePosts).text(userObject.posts);
+      if (profilePosts) {
+        userObject.posts.forEach(function(post) {
+          $(profilePosts).append("<div class='post'>" + post.content.title + "</div>");
+        });
+        profilePosts.forEach(function(post) {
+          $(post).text(userObject.posts);
+        });
    }));
 })();
