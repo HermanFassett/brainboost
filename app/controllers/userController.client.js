@@ -1,17 +1,30 @@
 'use strict';
 var username = "!";
 (function () {
-   var profileId = document.querySelector('#profile-id') || null;
-   var profileUsername = document.querySelector('#profile-username') || null;
-   var profileEmail = document.querySelector('#profile-email') || null;
-   var profileDate = document.querySelector('#profile-date') || null;
-   var profileAvatar = document.querySelector('#profile-avatar') || null;
-   var displayName = document.querySelector('#display-name');
+   var profileId = $('#profile-id') || null;
+   var profileUsername = $('#profile-username') || null;
+   var profileEmail = $('#profile-email') || null;
+   var profileDate = $('#profile-date') || null;
+   var profileAvatar = $('#profile-avatar') || null;
+   var navAvatar = $(".avatar-sm")[0] || null;
+   var navUnauth = $(".unauth") || null;
+   var navAuth = $(".auth") || null;
    var apiUrl = appUrl + '/api/:id';
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
-      username = userObject.profile.name;
+      if (userObject.profile.name) {
+        navUnauth.each(function(a) {
+          $(a).hide();
+        });
+        navAuth.each(function(a) {
+          $(a).show();
+        });
+      }
+      else {
+        navUnauth.each(function(a) { $(a).show() });
+        navAuth.each(function(a) { $(a).hide() });
+      }
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
