@@ -21,7 +21,9 @@ var username = "!";
         navUnauth.each(function(a) { $(a).show() });
         navAuth.each(function(a) { $(a).hide() });
       }
-      if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);
+      if (navAvatar) {
+         $(navAvatar).prop("src", userObject.profile.picture);
+         $(navAvatar).text(" " + userObject.profile.name);
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
