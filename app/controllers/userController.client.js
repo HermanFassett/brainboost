@@ -14,6 +14,7 @@ var username = "!";
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
+      if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);
       if (userObject.profile.name) {
         $(navUser).html($(navUser).html() + userObject.profile.name);
         navUnauth.each(function(a) { $(a).hide() });
@@ -23,7 +24,6 @@ var username = "!";
         navUnauth.each(function(a) { $(a).show() });
         navAuth.each(function(a) { $(a).hide() });
       }
-      if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
