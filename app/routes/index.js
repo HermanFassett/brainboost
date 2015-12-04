@@ -60,15 +60,21 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, function (req, res) {
 			res.json(req.user);
 		});
+  //Github auth
+	app.route('/auth/github').get(passport.authenticate('github'));
+	app.route('/auth/github/callback').get(passport.authenticate('github',
+	{
+		successRedirect: '/user',
+		failureRedirect: '/login'
+	}));
 
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
-
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
-			successRedirect: '/user',
-			failureRedirect: '/login'
-		}));
+	//Google auth
+	app.route('/auth/google').get(passport.authenticate('google'));
+	app.route('/auth/google/callback').get(passport.authenticate('google',
+	{
+		successRedirect: '/user',
+		failureRedirect: '/login'
+	}));
 
 	app.route('/api/:id/posts')
 		.get(isLoggedIn, postHandler.getPosts)
