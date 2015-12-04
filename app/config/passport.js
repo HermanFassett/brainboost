@@ -1,7 +1,9 @@
 'use strict';
-
+var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var OAuthStrategy = require('passport-oauth').OAuthStrategy;
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 
