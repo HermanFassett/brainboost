@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="user">
+<html>
 <head>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://bootswatch.com/yeti/bootstrap.min.css">
@@ -15,7 +15,7 @@
   <!-- Title -->
   <title>Brain Boost! - Users</title>
 </head>
-<body ng-controller="UserCtrl">
+<body>
   <nav class="navbar navbar-inverse animated fadeInDown">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -51,6 +51,7 @@
     <h4>Posts:</h4>
     <div class="post" ng-repeat="post in posts">
       {{post.content.title}}
+      {{username}}
     </div>
   </div>
   <div class="container">
