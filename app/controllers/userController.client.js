@@ -10,7 +10,8 @@
    var navAuth = $(".auth") || null;
    var navUser = $("#nav-user") || null;
    var apiUrl = appUrl + '/api/:id';
-
+   navUnauth.each(function(a) { $(a).show() });
+   navAuth.each(function(a) { $(a).hide() });
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
       if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);
@@ -18,10 +19,6 @@
         $(navUser).html($(navUser).html() + userObject.profile.name);
         navUnauth.each(function(a) { $(a).hide() });
         navAuth.each(function(a) { $(a).show() });
-      }
-      else {
-        navUnauth.each(function(a) { $(a).show() });
-        navAuth.each(function(a) { $(a).hide() });
       }
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
