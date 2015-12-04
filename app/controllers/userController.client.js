@@ -1,5 +1,3 @@
-'use strict';
-var username = "!";
 (function () {
    var profileId = $('#profile-id') || null;
    var profileUsername = $('#profile-username') || null;
