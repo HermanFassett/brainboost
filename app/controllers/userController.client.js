@@ -9,12 +9,13 @@ var username = "!";
    var navAvatar = $(".avatar-sm")[0] || null;
    var navUnauth = $(".unauth") || null;
    var navAuth = $(".auth") || null;
+   var navUser = $("#nav-user") || null;
    var apiUrl = appUrl + '/api/:id';
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
       if (userObject.profile.name) {
-        $(navAuth[0]).text(" " + userObject.profile.name);
+        $(navUser).text(" " + userObject.profile.name);
         navUnauth.each(function(a) { $(a).hide() });
         navAuth.each(function(a) { $(a).show() });
       }
