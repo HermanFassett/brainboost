@@ -15,13 +15,6 @@ module.exports = function (app, passport) {
 
 	var postHandler = new PostHandler();
 
-	app.route('/css/styles').get(function(req, res) {
-		res.sendFile(path + '/public/styles.css');
-	});
-	app.route('/css/media').get(function(req, res) {
-		res.sendFile(path + '/public/media-styles.css');
-	});
-
 	app.route('/')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
