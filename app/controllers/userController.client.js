@@ -1,5 +1,4 @@
 (function () {
-  var ajaxFunctions = require('../common/ajax-functions.js');
    var profileId = document.querySelector('#profile-id') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileEmail = document.querySelector('#profile-email') || null;
@@ -9,7 +8,7 @@
    function updateHtmlElement (data, element, userProperty) {
       element.innerHTML = data[userProperty];
    }
-   
+
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
 
