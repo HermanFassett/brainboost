@@ -29,10 +29,9 @@
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
       if (profilePosts) {
         var p = userObject.posts.shift();
-        console.log(p);
         $(profilePosts).children().eq(0).text(p.content.title);
         userObject.posts.forEach(function(post) {
-          $(profilePosts).append("<div class='post'>" + post.content.title + "</div>");
+          $(profilePosts).append("<div class='post'><h2>" + post.content.title + "</h2></div>");
         });
       }
    }));
