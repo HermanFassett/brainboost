@@ -1,5 +1,5 @@
 'use strict';
-
+var username = "!";
 (function () {
    var profileId = document.querySelector('#profile-id') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
@@ -11,6 +11,7 @@
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
+      username = userObject.profile.name;
       if (profileUsername) $(profileUsername).text(userObject.profile.name);
       if (profileEmail) $(profileEmail).text("Email: " + userObject.email);
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
