@@ -29,7 +29,7 @@
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
       if (profilePosts) {
         var p = userObject.posts.shift();
-        $(profilePosts).children().eq(0).text(p.content.title);
+        $(profilePosts).children().eq(0).html("<h2>" + p.content.title + "</h2>");
         userObject.posts.forEach(function(post) {
           $(profilePosts).append("<div class='post'><h2>" + post.content.title + "</h2></div>");
         });
