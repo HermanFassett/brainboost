@@ -53,6 +53,7 @@ module.exports = function (passport) {
 					} else {
 						var user = new User();
 						user.email = profile._json.email;
+						user.joinDate = new Date();
 						user.github = profile.id;
 						user.tokens.push({ kind: 'github', accessToken: accessToken });
 						user.profile.name = profile.displayName;
