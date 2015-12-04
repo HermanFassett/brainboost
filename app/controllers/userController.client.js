@@ -15,7 +15,7 @@ var username = "!";
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
       if (userObject.profile.name) {
-        $(navUser).text($(namUser) + userObject.profile.name);
+        $(navUser).text($(navUser) + userObject.profile.name);
         navUnauth.each(function(a) { $(a).hide() });
         navAuth.each(function(a) { $(a).show() });
       }
