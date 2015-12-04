@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
    var profileId = document.querySelector('#profile-id') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
@@ -9,7 +11,6 @@
       element.innerHTML = data[userProperty];
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-     console.log(data);
       var userObject = JSON.parse(data);
       updateHtmlElement(userObject, displayName, 'displayName');
       if (profileId !== null) {
