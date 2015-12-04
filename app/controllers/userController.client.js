@@ -12,10 +12,10 @@
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
-      updateHtmlElement(userObject, displayName, 'displayName');
-      if (profileId !== null) {
-         updateHtmlElement(userObject, profileId, 'id');
-      }
+      // updateHtmlElement(userObject, displayName, 'displayName');
+      // if (profileId !== null) {
+      //    updateHtmlElement(userObject, profileId, 'id');
+      // }
       if (profileUsername !== null) {
          updateHtmlElement(userObject, profileUsername, 'username');
       }
