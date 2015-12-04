@@ -15,6 +15,7 @@ var username = "!";
       var userObject = JSON.parse(data);
       if (userObject.profile.name) {
         navUnauth.each(function(a) {
+          console.log(a);
           $(a).hide();
         });
         navAuth.each(function(a) {
