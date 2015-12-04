@@ -9,8 +9,7 @@ var Post = new mongoose.Schema({
     idea: { type: String, trim: true }
   },
   author: {
-    name: String,
-    email: String
+    name: String
   },
   votes: Number,
   date: {type: Date, default: Date.now },

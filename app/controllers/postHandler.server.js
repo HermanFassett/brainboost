@@ -6,7 +6,7 @@ function PostHandler () {
 			.findOne({ 'id': req.user.id }, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
-				res.json(result.nbrClicks);
+				res.json(result.posts);
 			});
 	};
 	this.addPost = function (req, res) {
