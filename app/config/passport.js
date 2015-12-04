@@ -24,7 +24,7 @@ module.exports = function (passport) {
 		if (req.user) {
 			User.findOne({ github: profile.id }, function(err, existingUser) {
 				if (existingUser) {
-					req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+					//req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
 					done(err);
 				} else {
 					User.findById(req.user.id, function(err, user) {
@@ -35,7 +35,7 @@ module.exports = function (passport) {
 						user.profile.location = user.profile.location || profile._json.location;
 						user.profile.website = user.profile.website || profile._json.blog;
 						user.save(function(err) {
-							req.flash('info', { msg: 'GitHub account has been linked.' });
+							//req.flash('info', { msg: 'GitHub account has been linked.' });
 							done(err, user);
 						});
 					});
@@ -48,7 +48,7 @@ module.exports = function (passport) {
 				}
 				User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
 					if (existingEmailUser) {
-						req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' });
+						//req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' });
 						done(err);
 					} else {
 						var user = new User();
