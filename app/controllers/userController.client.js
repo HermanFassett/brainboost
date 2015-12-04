@@ -8,20 +8,16 @@
    function updateHtmlElement (data, element, userProperty) {
       element.innerHTML = data[userProperty];
    }
-
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
+     console.log(data);
       var userObject = JSON.parse(data);
-
       updateHtmlElement(userObject, displayName, 'displayName');
-
       if (profileId !== null) {
          updateHtmlElement(userObject, profileId, 'id');
       }
-
       if (profileUsername !== null) {
          updateHtmlElement(userObject, profileUsername, 'username');
       }
-
       if (profileEmail !== null) {
          updateHtmlElement(userObject, profileEmail, 'email');
       }
