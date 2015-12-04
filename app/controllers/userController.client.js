@@ -28,7 +28,9 @@
       if (profileDate) $(profileDate).text("Join Date: " + new Date(userObject.joinDate).toDateString());
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
       if (profilePosts) {
-        $(profilePosts).children().eq(0).text(userObject.posts.shift());
+        var p = userObject.posts.shift();
+        console.log(p);
+        $(profilePosts).children().eq(0).text(p.content.title);
         userObject.posts.forEach(function(post) {
           $(profilePosts).append("<div class='post'>" + post.content.title + "</div>");
         });

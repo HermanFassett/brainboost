@@ -1,7 +1,5 @@
 'use strict';
-
 var mongoose = require('mongoose');
-
 var Post = new mongoose.Schema({
   type: String,
   content: {
@@ -15,5 +13,4 @@ var Post = new mongoose.Schema({
   date: {type: Date, default: Date.now },
   comments: {type: Array, default: []}
 });
-
 module.exports = mongoose.model('Post', User);
