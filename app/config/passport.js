@@ -20,7 +20,7 @@ module.exports = function (passport) {
 		clientSecret: configAuth.githubAuth.clientSecret,
 		callbackURL: configAuth.githubAuth.callbackURL
 	},
-	function (req, token, refreshToken, profile, done) {
+	function (req, accessToken, refreshToken, profile, done) {
 		if (req.user) {
 			User.findOne({ github: profile.id }, function(err, existingUser) {
 				if (existingUser) {
