@@ -10,7 +10,11 @@
    var apiUrl = appUrl + '/api/:id';
 
    function updateHtmlElement (data, element, userProperty, pre, post) {
-      element.innerHTML = data[userProperty];
+     var html = "";
+     if (pre) html += pre;
+     html += data[userProperty];
+     if (post) html += post;
+     element.innerHTML = html;
    }
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
@@ -18,12 +22,8 @@
       // if (profileId !== null) {
       //    updateHtmlElement(userObject, profileId, 'id');
       // }
-      if (profileUsername !== null) {
-         updateHtmlElement(userObject.profile, profileUsername, 'name');
-      }
-      if (profileEmail !== null) {
-         updateHtmlElement(userObject, profileEmail, 'email', "Email: ");
-      }
+      if (profileUsername) updateHtmlElement(userObject.profile, profileUsername, 'name');
+      if (profileEmail) updateHtmlElement(userObject, profileEmail, 'email', "Email: ");
       if (profileDate) updateHtmlElement(userObject, profileDate, 'joinDate', 'Join Date: ');
       if (profileAvatar) $(profileAvatar).prop("src", userObject.profile.picture);
    }));
