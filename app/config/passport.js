@@ -18,6 +18,25 @@ module.exports = function (passport) {
 		});
 	});
 
+	/**
+	 * Sign in using Email and Password.
+	 */
+	passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+	  email = email.toLowerCase();
+	  User.findOne({ email: email }, function(err, user) {
+	    if (!user) {
+	      return done(null, false, { message: 'Email ' + email + ' not found'});
+	    }
+	    user.comparePassword(password, function(err, isMatch) {
+	      if (isMatch) {
+	        return done(null, user);
+	      } else {
+	        return done(null, false, { message: 'Invalid email or password.' });
+	      }
+	    });
+	  });
+	}));
+	
 	passport.use(new GitHubStrategy({
 		clientID: configAuth.githubAuth.clientID,
 		clientSecret: configAuth.githubAuth.clientSecret,
@@ -121,4 +140,16 @@ module.exports = function (passport) {
 	    });
 	  }
 	}));
+	/**
+	 * Authorization Required middleware.
+	 */
+	exports.isAuthorized = function(req, res, next) {
+	  var provider = req.path.split('/').slice(-1)[0];
+
+	  if (_.find(req.user.tokens, { kind: provider })) {
+	    next();
+	  } else {
+	    res.redirect('/auth/' + provider);
+	  }
+	};
 };
