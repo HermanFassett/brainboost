@@ -8,9 +8,7 @@
    var apiUrl = appUrl + '/api/:id/posts';
 
    function updatePosts (data) {
-     console.log(data);
       var postsObject = JSON.parse(data);
-      console.log(postsObject);
       if (boosts) {
         postsObject.forEach(function(a) {
           "<div class='post-left'>" +
