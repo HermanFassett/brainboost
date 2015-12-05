@@ -3,8 +3,10 @@ var Users = require('../models/users.js');
 var Posts = require('../models/posts.js');
 function PostHandler () {
 	this.getPosts = function (req, res) {
+		console.log("hi");
 		Posts.findOne({ 'type': req.posts.type })//, { '_id': false })
 			.exec(function (err, result) {
+				console.log(result);
 				if (err) { throw err; }
 				res.json(result.posts);
 			});
