@@ -77,7 +77,7 @@ module.exports = function (app, passport) {
 	}));
 
 	app.route('/api/:id/posts')
-		.get(isLoggedIn, postHandler.getPosts)
-		.post(isLoggedIn, postHandler.addPost)
-		.delete(isLoggedIn, postHandler.deletePost);
+		.get(isLoggedIn, postHandler.getPosts);
+		// .post(isLoggedIn, postHandler.addPost)
+		// .delete(isLoggedIn, postHandler.deletePost);
 };

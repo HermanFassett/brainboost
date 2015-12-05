@@ -33,4 +33,4 @@ app.use(passport.session());
 routes(app, passport);
 
 // Listen on default port or 5000
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 8080);

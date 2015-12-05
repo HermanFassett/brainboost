@@ -1,9 +1,9 @@
 'use strict';
 var Users = require('../models/users.js');
+var Posts = require('../models/posts.js');
 function PostHandler () {
 	this.getPosts = function (req, res) {
-		Users
-			.findOne({ 'id': req.user.id }, { '_id': false })
+		Posts.findOne({ 'type': req.posts.type })//, { '_id': false })
 			.exec(function (err, result) {
 				if (err) { throw err; }
 				res.json(result.posts);

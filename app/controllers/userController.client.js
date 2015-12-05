@@ -10,8 +10,10 @@
    var navAuth = $(".auth") || null;
    var navUser = $("#nav-user") || null;
    var apiUrl = appUrl + '/api/:id';
+
    navUnauth.each(function(a) { $(navUnauth[a]).css("display", "block") });
    navAuth.each(function(a) { $(navAuth[a]).css("display", "none") });
+   
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
       if (navAvatar) $(navAvatar).prop("src", userObject.profile.picture);

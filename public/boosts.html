@@ -55,7 +55,7 @@
       </ul>
     </div>
     <hr>
-    <div ng-repeat="boost in boosts | orderBy:predicate:reverse" class="post animated zoomInUp">
+    <div id="boosts" class="post animated zoomInUp">
       <div class="post-left">
         <span class="glyphicon glyphicon-plus">
           <h4>{{boost.votes}}</h4>
@@ -93,7 +93,8 @@
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>
-  <script type="text/javascript" src="common/ajax-functions.js"></script>
+  <script src="common/ajax-functions.js"></script>
   <script src="controllers/userController.client.js"></script>
+  <script src="controllers/postController.client.js"></script>
 </body>
 </html>
