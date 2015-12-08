@@ -18,8 +18,18 @@ function UserHandler () {
 		});
 	};
 	this.getActiveUser = function(req, res) {
-		console.log(req.user);
-		res.json(req.user);
+		if (req.user) {
+			Posts.find({ 'author.name' : req.user.profile.name}, function(err, result) {
+				res.render(path + '/public/profile.ejs', {
+					name: req.user.profile.name,
+					img: req.user.profile.picture,
+					date: req.user.joinDate,
+					email: req.user.email,
+					posts: result,
+					id: req.user._id
+				});
+			});
+		}
 	}
 }
 module.exports = UserHandler;

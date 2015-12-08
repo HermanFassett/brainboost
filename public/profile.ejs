@@ -18,6 +18,19 @@
     </div>
   </div>
   <div class="container">
+    <div class="jumbotron">
+      <h1 class="animated rotateInDownLeft"><%=name%></h1>
+    </div>
+    <img src="<%=img%>"class="avatar">
+    <h4 class="text-faded">Join Date: <%=date.toDateString()%></h4>
+    <h4>Posts:</h4>
+    <div id="posts">
+      <% posts.forEach(function(post) { %>
+        <a href="/posts/<%=post._id%>"><div class='post'><%=post.content.title%></div></a>
+      <% }); %>
+    </div>
+  </div>
+  <div class="container">
     <% include /partials/footer %>
   </div>
   <% include /partials/scripts %>

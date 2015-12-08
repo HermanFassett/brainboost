@@ -32,9 +32,7 @@ module.exports = function (app, passport) {
 		res.redirect('/login');
 	});
 	// View profile
-	app.route('/profile').get(isLoggedIn, function (req, res) {
-		res.render(path + '/public/profile.ejs');
-	});
+	app.route('/profile').get(isLoggedIn, userHandler.getActiveUser);
 	// View all users
 	app.route('/users').get(isLoggedIn, function (req, res) {
 		res.render(path + '/public/users.ejs');
