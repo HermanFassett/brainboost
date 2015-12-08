@@ -45,10 +45,7 @@ module.exports = function (app, passport) {
 	});
 
 	// Submit a new post
-	app.route('/send').get(postHandler.addPost); // Add isLoggedIn
-
-	// Test function
-	app.route('/test').get(userHandler.getActiveUser);
+	app.route('/send').get(isLoggedIn, postHandler.addPost);
 
 	// Get boosts and brains
 	app.route('/boosts').get(postHandler.getBoosts);
