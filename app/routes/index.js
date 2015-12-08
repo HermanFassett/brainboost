@@ -41,6 +41,10 @@ module.exports = function (app, passport) {
 		res.render(path + '/public/users.ejs');
 	});
 
+	app.route('/new').get(isLoggedIn, function(req, res) {
+		res.render(path + '/public/new.ejs');
+	});
+	
 	app.route('/boosts').get(postHandler.getBoosts);
 	app.route('/brains').get(postHandler.getBrains);
 
