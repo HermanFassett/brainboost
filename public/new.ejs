@@ -10,33 +10,31 @@
     <div class="jumbotron">
       <h1 class="animated rotateInDownLeft">New Post</h1>
       <hr>
-      <form class="form-horizontal collapse" id="loginlocal" name="loginForm" ng-submit="loginForm.$valid && login()">
-        <h3 class="text-danger">{{error}}</h3>
-        <h3 class="text-success">{{success}}</h3>
-        <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
-          <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+      <form class="form-horizontal" id="newpost">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Type <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>Brain</li>
+            <li>Boost</li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="inputTitle" class="col-sm-2 control-label">Title</label>
           <div class="col-sm-10">
-            <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" title="email" ng-model="user.email" required>
+            <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title" title="title" required>
           </div>
         </div>
         <div class="form-group">
-          <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+          <label for="inputIdea" class="col-sm-2 control-label">Content</label>
           <div class="col-sm-10">
-            <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="user.password" required>
+            <input type="text" name="idea" class="form-control" id="inputIdea" placeholder="Idea content..." required>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Remember me
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Log in</button>
+            <button type="submit" class="btn btn-default">Post</button>
           </div>
         </div>
       </form>
