@@ -52,12 +52,12 @@ function PostHandler () {
 		console.log(req.params);
     Users.findOne({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
       var vote = req.params.vote;
-			if (vote === 1) {
+			if (vote == 1) {
       	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
 					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
 				});
 			}
-			else if (vote === -1) {
+			else if (vote == -1) {
 				Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.down': 1}}, function(e, r) {
 					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
 				});
