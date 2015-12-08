@@ -15,6 +15,7 @@ var userSchema = new mongoose.Schema({
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
   },
+  votes: Array,
   joinDate: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date

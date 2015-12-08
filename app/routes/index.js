@@ -76,7 +76,5 @@ module.exports = function (app, passport) {
 		failureRedirect: '/login'
 	}));
 
-	app.route('/api/:id/posts').get(isLoggedIn, postHandler.getPosts);
-		// .post(isLoggedIn, postHandler.addPost)
-		// .delete(isLoggedIn, postHandler.deletePost);
+	app.route('/posts/:id/:vote').get(isLoggedIn, postHandler.getVotes).post(isLoggedIn,postHandler.addVote);
 };

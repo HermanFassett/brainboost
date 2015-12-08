@@ -48,14 +48,28 @@ function PostHandler () {
 			else res.redirect('/posts/' + post._id);
 		});
 	};
-	this.deletePost = function (req, res) {
-		Users
-			.findOneAndUpdate({ 'id': req.user.id }, { 'nbrClicks.clicks': 0 })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-					res.json(result.nbrClicks);
-				}
-			);
+	this.addVote = function(req, res) {
+		console.log(req.params);
+    Users.findOne({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
+      var vote = req.params.vote;
+			if (vote === 1) {
+      	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
+					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
+				});
+			}
+			else if (vote === -1) {
+				Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.down': 1}}, function(e, r) {
+					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
+				});
+			}
+    });
+  }
+	this.getVotes = function (req, res) {
+		console.log(req.params.id);
+		Posts.findOne({'_id': req.params.id }, function (err, result) {
+			if (err) { throw err; }
+			res.json(result.nbrClicks);
+		});
 	};
 }
 module.exports = PostHandler;
