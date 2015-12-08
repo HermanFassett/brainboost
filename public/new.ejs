@@ -2,7 +2,7 @@
 <html>
 <head>
   <% include /partials/head %>
-  <title>Brain Boost!</title>
+  <title>Brain Boost! - New Post</title>
 </head>
 <body>
   <% include /partials/header %>
@@ -10,15 +10,12 @@
     <div class="jumbotron">
       <h1 class="animated rotateInDownLeft">New Post</h1>
       <hr>
-      <form class="form-horizontal" id="newpost">
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Type <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Brain</a></li>
-            <li><a href="#">Boost</a></li>
-          </ul>
+      <form class="form-horizontal" id="newpost" action="/send">
+        <div class="form-group">
+          <select class="form-control" name="type">
+            <option value="brain">Brain</option>
+            <option value="boost">Boost</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="inputTitle" class="col-sm-2 control-label">Title</label>

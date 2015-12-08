@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var PostHandler = require(path + '/app/controllers/postHandler.server.js');
+var UserHandler = require(path + '/app/controllers/userHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -11,13 +12,10 @@ module.exports = function (app, passport) {
 	}
 
 	var postHandler = new PostHandler();
+	var userHandler = new UserHandler();
 
 	app.route('/').get(function (req, res) {
 		res.render(path + '/public/index.ejs');
-	});
-
-	app.get('/test', function(req, res) {
-		res.render(path + '/public/posts.ejs');
 	});
 
 	app.route('/login').get(function (req, res) {
@@ -40,11 +38,15 @@ module.exports = function (app, passport) {
 	app.route('/users').get(isLoggedIn, function (req, res) {
 		res.render(path + '/public/users.ejs');
 	});
-
+	app.route('/user/:name').get(userHandler.getUser);
 	app.route('/new').get(isLoggedIn, function(req, res) {
 		res.render(path + '/public/new.ejs');
 	});
-	
+	app.route('/send').get(postHandler.addPost);
+	app.route('/test').get(function(req, res) {
+		res.render(path + '/public/new.ejs');
+	});
+
 	app.route('/boosts').get(postHandler.getBoosts);
 	app.route('/brains').get(postHandler.getBrains);
 

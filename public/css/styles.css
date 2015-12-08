@@ -1,7 +1,7 @@
 .post {
   min-width: 100px;
   max-width: 500px;
-  min-height: 100px;
+  min-height: 50px;
   padding: 25px;
   margin: 10px;
   float: left;

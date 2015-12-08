@@ -30,7 +30,23 @@ function PostHandler () {
 		});
 	}
 	this.addPost = function (req, res) {
-		console.log(req.body);
+		console.log(req.query);
+		var post = new Posts({
+			content: {
+				title: req.query.title,
+				idea: req.query.idea
+			},
+			votes: {
+				up: 0,
+				down: 0
+			},
+			date: new Date(),
+			type: req.query.type.toLowerCase()
+		});
+		post.save(function(err) {
+			if (err) console.log("Error on save!");
+			else res.redirect('/posts/' + post._id);
+		});
 	};
 	this.deletePost = function (req, res) {
 		Users
