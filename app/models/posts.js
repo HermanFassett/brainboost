@@ -9,7 +9,10 @@ var Post = new mongoose.Schema({
   author: {
     name: String
   },
-  votes: Number,
+  votes: {
+    up: Number,
+    down: Number
+  },
   date: {type: Date, default: Date.now },
   comments: {type: Array, default: []}
 });

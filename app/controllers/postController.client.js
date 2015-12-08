@@ -1,17 +1,17 @@
 'use strict';
 
 (function () {
-   var addButton = document.querySelector('.btn-add');
-   var deleteButton = document.querySelector('.btn-delete');
-   var clickNbr = document.querySelector('#click-nbr');
+   var addButton = $('.btn-add');
+   var deleteButton = $('.btn-delete');
+   var clickNbr = $('#click-nbr');
    var boosts = $("#boosts") || null;
-   var apiUrl = appUrl + '/api/:id/posts';
+   var apiUrl = appUrl + '/posts/:id';
 
    function updatePosts (data) {
       var postsObject = JSON.parse(data);
       if (boosts) {
         postsObject.forEach(function(a) {
-          "<div class='post-left'>" +
+          var inner = "<div class='post-left'>" +
             "<span class='glyphicon glyphicon-plus'>" +
               "<h4>{{boost.votes}}</h4>" +
             "<span class='glyphicon glyphicon-minus'>" +
@@ -35,7 +35,8 @@
             "<div ng-repeat='comment in boost.comments | limitTo:10' ng-show='show'>" +
               "<h4>{{comment.comment}}</h4><h6>~{{comment.author}}</h6>" +
             "</div>" +
-          "</div>"
+          "</div>";
+          boosts.append(inner);
         });
       }
    }

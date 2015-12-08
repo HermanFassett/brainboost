@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>Brain Boost! - <%=type%></title>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {
+      'packages': ['corechart']
+    });
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Type');
+      data.addColumn('number', 'Votes');
+      data.addRows([
+        ['Upvotes', parseInt('<%=post.votes.up%>')],
+        ['Downvotes', parseInt('<%=post.votes.down%>')]
+      ]);
+      // Set chart options
+      var options = {
+        'height': 300
+      };
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+
+    var commentShow = function(elem) {
+      if (elem.checked) $("#commentSection").show();
+      else $("#commentSection").hide();
+    }
+  </script>
+</head>
+<body>
+  <% include /partials/header %>
+  <div class="container">
+    <h1 class="animated rollin"><%=type%></h1>
+    <hr>
+    <div id="boosts" class="post animated zoomInUp">
+      <div class="post-left">
+        <span class="glyphicon glyphicon-plus">
+          <h4><%= post.votes.up - post.votes.down%></h4>
+        <span class="glyphicon glyphicon-minus">
+      </div>
+      <div class="post-right">
+        <span class="glyphicon glyphicon-remove" ng-show="username.username == boost.author.name">
+      </div>
+      <h1> <%= post.content.title%></h1><hr>
+      <p><%= post.content.idea%></p>
+      <div id="chart_div"></div>
+      <blockquote><%= post.author.name%></blockquote>
+      <div class="well">
+        <div class="checkbox">
+          <label><input type="checkbox" onclick="commentShow(this)">Comments</label>
+        </div>
+        <div class="input-group" ng-show="username.username !== '!' && show">
+          <input type="text" class="form-control" placeholder="Add a comment...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Comment</button>
+          </span>
+        </div>
+        &nbsp;
+        <div id="commentSection" style="display:none">
+          <% post.comments.forEach(function(comment) { %>
+            <div>
+              <h4><%=comment.comment%></h4><h6>~<%=comment.author%></h6>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+</body>
+</html>

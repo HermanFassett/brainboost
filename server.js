@@ -8,6 +8,8 @@ var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
+app.set('view engine', 'ejs');
+
 var uristring = process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
                 process.env.MONGO_URI;

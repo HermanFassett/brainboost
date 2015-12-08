@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>Brain Boost! - <%=type%></title>
+</head>
+<body>
+  <% include /partials/header %>
+  <div class="container">
+    <h1 class="animated rollin"><%=type%></h1>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort by <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="" ng-click="order('votes')">Votes</a></li>
+        <li><a href="" ng-click="order('date')">Date</a></li>
+      </ul>
+    </div>
+    <hr>
+    <% posts.forEach(function(post) { %>
+      <div id="boosts" class="post animated zoomInUp">
+        <div class="post-left">
+          <span class="glyphicon glyphicon-plus">
+            <h4><%= post.votes.up - post.votes.down%></h4>
+          <span class="glyphicon glyphicon-minus">
+        </div>
+        <div class="post-right">
+          <span class="glyphicon glyphicon-remove" ng-show="username.username == boost.author.name">
+        </div>
+        <a href="/posts/<%=post._id%>"><h1> <%=post.content.title%></h1></a><hr>
+        <p><%=post.content.idea%></p>
+        <blockquote><%=post.author.name%></blockquote>
+        <div class="well">
+          <div class="checkbox">
+            <label><input type="checkbox" ng-model="show" ng-value="true">Comments</label>
+          </div>
+          <div class="input-group" class="navAuth" ng-show="username.username !== '!' && show">
+            <input type="text" class="form-control" placeholder="Add a comment...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Comment</button>
+            </span>
+          </div>
+          <% post.comments.forEach(function(comment) { %>
+            <div ng-show="show">
+              <h4><%=comment.comment%></h4><h6>~<%=comment.author%></h6>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+</body>
+</html>
