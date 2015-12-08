@@ -17,8 +17,7 @@ var userSchema = new mongoose.Schema({
   },
   joinDate: Date,
   resetPasswordToken: String,
-  resetPasswordExpires: Date,
-  posts: {type: Array, default: []}
+  resetPasswordExpires: Date
 });
 
 /**
