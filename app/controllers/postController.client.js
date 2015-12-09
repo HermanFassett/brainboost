@@ -25,6 +25,11 @@
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       chart.draw(data, options);
    }
+   function updateComments(data) {
+     console.log(data);
+     var comments = JSON.parse(data);
+
+   }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));
 
@@ -40,7 +45,7 @@
    });
    $(commentButton).click(function() {
      ajaxFunctions.ajaxRequest('POST', apiUrl + "/post/" + commentText, function () {
-        ajaxFunctions.ajaxRequest('GET', apiUrl + "/post/" + commentText, updatePosts);
+        ajaxFunctions.ajaxRequest('GET', apiUrl + "/post/" + commentText, updateComments);
      });
    });
    $(deleteButton).click(function() {

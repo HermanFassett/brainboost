@@ -95,5 +95,11 @@ function PostHandler () {
 			});
 		}
 	}
+	this.getComments = function (req, res) {
+		Posts.findOne({'_id': req.params.id }, function (err, result) {
+			if (err) throw err;
+			res.json(result.comments);
+		});
+	};
 }
 module.exports = PostHandler;

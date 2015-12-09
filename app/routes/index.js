@@ -77,6 +77,6 @@ module.exports = function (app, passport) {
 	}));
 
 	app.route('/posts/:id/delete/post').get(isLoggedIn, postHandler.deletePost);
-	app.route('/posts/:id/post/:comment').get(isLoggedIn, postHandler.addComment);
+	app.route('/posts/:id/post/:comment').post(isLoggedIn, postHandler.addComment);
 	app.route('/posts/:id/:vote').get(isLoggedIn, postHandler.getVotes).post(isLoggedIn,postHandler.addVote);
 };
