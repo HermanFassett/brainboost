@@ -76,5 +76,6 @@ module.exports = function (app, passport) {
 		failureRedirect: '/login'
 	}));
 
+	app.route('/posts/:id/delete/post').get(isLoggedIn, postHandler.deletePost);
 	app.route('/posts/:id/:vote').get(isLoggedIn, postHandler.getVotes).post(isLoggedIn,postHandler.addVote);
 };

@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-   var addButton = $('.btn-add');
-   var deleteButton = $('.btn-delete');
+   var upButton = $('#btn-up');
+   var downButton = $('#btn-down');
+   var deleteButton = $('#btn-delete');
    var voteNbr = $('#vote-nbr');
    var apiUrl = window.location.href;
 
@@ -25,14 +26,17 @@
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));
 
-   $(addButton).click(function () {
+   $(upButton).click(function () {
     ajaxFunctions.ajaxRequest('POST', apiUrl + "/up", function () {
        ajaxFunctions.ajaxRequest('GET', apiUrl + "/up", updatePosts);
     });
    });
-   $(deleteButton).click(function () {
+   $(downButton).click(function () {
       ajaxFunctions.ajaxRequest('POST', apiUrl + "/down", function () {
          ajaxFunctions.ajaxRequest('GET', apiUrl + "/down", updatePosts);
       });
+   });
+   $(deleteButton).click(function() {
+     window.location.assign(apiUrl + "/delete/post");
    });
 })();

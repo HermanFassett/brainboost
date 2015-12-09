@@ -25,7 +25,8 @@ function PostHandler () {
 			res.render(path + '/public/post.ejs',
 			{
 				post: result,
-				type: result.type.charAt(0).toUpperCase() + result.type.slice(1)
+				type: result.type.charAt(0).toUpperCase() + result.type.slice(1),
+				owner: (req.user.profile.name == result.author.name)
 			});
 		});
 	}
@@ -47,6 +48,10 @@ function PostHandler () {
 			if (err) console.log("Error on save!");
 			else res.redirect('/posts/' + post._id);
 		});
+	};
+	this.deletePost = function (req, res) {
+		Posts.findOne( { '_id': req.params.id }).remove().exec();
+		res.redirect('/posts');
 	};
 	this.addVote = function(req, res) {
     Users.findOne({'profile.name': req.user.profile.name}, function(err, result) {
