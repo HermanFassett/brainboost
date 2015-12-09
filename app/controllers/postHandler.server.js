@@ -97,6 +97,7 @@ function PostHandler () {
 		}
 	}
 	this.getComments = function (req, res) {
+		console.log(req.params);
 		Posts.findOne({'_id': req.params.id }, function (err, result) {
 			if (err) throw err;
 			res.json(result.comments);

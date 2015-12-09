@@ -43,8 +43,8 @@
       });
    });
    $(commentButton).click(function() {
-     ajaxFunctions.ajaxRequest('POST', apiUrl + "/post/" + commentText, function () {
-        ajaxFunctions.ajaxRequest('GET', apiUrl + "/post/" + commentText, updateComments);
+     ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment&text=" + commentText, function () {
+        ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment&text=" + commentText, updateComments);
      });
    });
    $(deleteButton).click(function() {
