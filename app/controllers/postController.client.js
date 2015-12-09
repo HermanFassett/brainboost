@@ -8,6 +8,7 @@
    var apiUrl = window.location.href + '/1';
 
    function updatePosts(data) {
+     console.log(data);
       var postsObject = JSON.parse(data);
    }
 
