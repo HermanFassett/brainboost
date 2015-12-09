@@ -70,12 +70,15 @@
             </span>
           </div>
           &nbsp;
-          <% post.comments.forEach(function(comment) { %>
-            <div>
-              <h5><%=comment.comment%></h5>
-              <h6>~<%=comment.author%><p class="text-muted text-right"><%=new Date(comment.date).toDateString()%></p></h6>
-            </div>
-          <% }); %>
+          <div id="commentsBox">
+            <% post.comments.sort(function(a,b) { return new Date(b.date) - new Date(a.date); }); %>
+            <% post.comments.forEach(function(comment) { %>
+              <div>
+                <h5><%=comment.comment%></h5>
+                <h6>~<%=comment.author%><p class="text-muted text-right"><%=new Date(comment.date).toDateString()%></p></h6>
+              </div>
+            <% }); %>
+          </div>
         </div>
       </div>
     </div>

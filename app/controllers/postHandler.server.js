@@ -80,24 +80,23 @@ function PostHandler () {
 		});
 	};
 	this.addComment = function(req, res) {
-		console.log(req.params);
 		if (req.user) {
+			var comment = {
+				author: req.user.profile.name,
+				comment: req.params.comment,
+				date: new Date()
+			};
 			Posts.findOneAndUpdate( {'_id': req.params.id},
 			{ $push:
 				{
-					comments: {
-						author: req.user.profile.name,
-						comment: req.params.comment,
-						date: new Date()
-					}
+					comments: comment
 				}}, function(err, result) {
 					if (err) console.log(err);
-					res.json(result.comments);
+					res.json(comment);
 			});
 		}
 	}
 	this.getComments = function (req, res) {
-		console.log(req.params);
 		Posts.findOne({'_id': req.params.id }, function (err, result) {
 			if (err) throw err;
 			res.json(result.comments);

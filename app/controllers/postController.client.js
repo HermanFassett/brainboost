@@ -26,7 +26,13 @@
       chart.draw(data, options);
    }
    function updateComments(data) {
-     var comments = JSON.parse(data);
+     var comment = JSON.parse(data);
+     $("#commentsBox").html("<div>" +
+                            "<h5>" + comment.comment + "</h5>" +
+                            "<h6>~" + comment.author + "<p class='text-muted text-right'>" + new Date(comment.date).toDateString() +
+                            "</p></h6>" +
+                            "</div>" +
+                            $("#commentsBox").html());
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));
@@ -42,7 +48,6 @@
       });
    });
    $(commentButton).click(function() {
-     console.log($(commentText).val());
      ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment/" + $(commentText).val(), function () {
         ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment/" + $(commentText).val(), updateComments);
      });
