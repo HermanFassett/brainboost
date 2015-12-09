@@ -27,23 +27,6 @@
         <p><%=post.content.idea%></p>
         <p class="text-muted text-right"><%=post.date.toDateString()%></p>
         <a href="/user/<%=post.author.name%>"><blockquote><%=post.author.name%></blockquote></a>
-        <div class="well">
-          <div class="checkbox">
-            <label><input type="checkbox" ng-model="show" ng-value="true">Comments</label>
-          </div>
-          <div class="input-group" class="navAuth" ng-show="username.username !== '!' && show">
-            <input type="text" class="form-control" placeholder="Add a comment...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Comment</button>
-            </span>
-          </div>
-          &nbsp;
-          <% post.comments.forEach(function(comment) { %>
-            <div ng-show="show">
-              <h4><%=comment.comment%></h4><h6>~<%=comment.author%></h6>
-            </div>
-          <% }); %>
-        </div>
       </div>
     <% }); %>
   </div>
