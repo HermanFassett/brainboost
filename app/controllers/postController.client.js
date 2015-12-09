@@ -27,6 +27,7 @@
    }
    function updateComments(data) {
      var comment = JSON.parse(data);
+     console.log(comment);
      $("#commentsBox").html("<div>" +
                             "<h5>" + comment.comment + "</h5>" +
                             "<h6>~" + comment.author + "<p class='text-muted text-right'>" + new Date(comment.date).toDateString() +
