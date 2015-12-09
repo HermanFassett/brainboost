@@ -15,19 +15,18 @@
         <a href="/auth/github" class="btn btn-info"><i class="fa fa-github fa-lg"></i> Login with Github</a>
         <a href="/auth/google" class="btn btn-danger" href="#"><i class="fa fa-google fa-lg"></i> Login with Google</a>
       </center>
-      <form class="form-horizontal collapse" id="loginlocal" name="loginForm" ng-submit="loginForm.$valid && login()">
-        <h3 class="text-danger">{{error}}</h3>
-        <h3 class="text-success">{{success}}</h3>
-        <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+      <br>
+      <form class="form-horizontal collapse" id="loginlocal" name="loginForm" action="" method="post">
+        <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" title="email" ng-model="user.email" required>
+            <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" title="email" required>
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
           <div class="col-sm-10">
-            <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="user.password" required>
+            <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" required>
           </div>
         </div>
         <div class="form-group">

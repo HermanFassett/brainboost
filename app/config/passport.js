@@ -22,8 +22,10 @@ module.exports = function (passport) {
 	 * Sign in using Email and Password.
 	 */
 	passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+		console.log(email);
 	  email = email.toLowerCase();
 	  User.findOne({ email: email }, function(err, user) {
+			console.log(err + " " + user);
 	    if (!user) {
 	      return done(null, false, { message: 'Email ' + email + ' not found'});
 	    }
@@ -104,6 +106,7 @@ module.exports = function (passport) {
 	      } else {
 	        User.findById(req.user.id, function(err, user) {
 	          user.google = profile.id;
+						user.joinDate = new Date();
 	          user.tokens.push({ kind: 'google', accessToken: accessToken });
 	          user.profile.name = user.profile.name || profile.displayName;
 	          user.profile.gender = user.profile.gender || profile._json.gender;
