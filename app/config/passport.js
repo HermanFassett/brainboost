@@ -127,10 +127,9 @@ module.exports = function (passport) {
 	          console.log('There is already an account using this email address.');
 	          existingEmailUser.google = profile.id;
 		        existingEmailUser.tokens.push({ kind: 'google', accessToken: accessToken });
-		          user.profile.picture = user.profile.picture || profile._json.image.url;
-	          user.save(function(err) {
+	          existingEmailUser.save(function(err) {
 	            console.log('Google account has been linked.');
-	            done(err, user);
+	            done(err, existingEmailUser);
 	          });
 	        } else {
 	          var user = new User();
