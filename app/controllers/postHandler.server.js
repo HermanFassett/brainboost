@@ -49,7 +49,9 @@ function PostHandler () {
 		});
 	};
 	this.addVote = function(req, res) {
-    Users.findOneAndUpdate({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
+    Users.findOneAndUpdate({'profile.name': req.user.profile.name}, {$push: {votes: req.params.id}}, function(err, result) {
+			console.log(result.votes);
+			console.log(result.votes.indexOf(req.params.id));
       var vote = req.params.vote;
 			if (vote == "up") {
       	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
