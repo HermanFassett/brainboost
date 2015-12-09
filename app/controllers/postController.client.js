@@ -5,7 +5,7 @@
    var deleteButton = $('.btn-delete');
    var clickNbr = $('#click-nbr');
    var boosts = $("#boosts") || null;
-   var apiUrl = window.location.href + '/1';
+   var apiUrl = window.location.href;
 
    function updatePosts(data) {
      console.log(data);
@@ -15,7 +15,12 @@
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));
 
    addButton.click(function () {
-      ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
+      ajaxFunctions.ajaxRequest('POST', apiUrl + "/up", function () {
+         ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts);
+      });
+   });
+   deleteButton.click(function () {
+      ajaxFunctions.ajaxRequest('POST', apiUrl + "/down", function () {
          ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts);
       });
    });

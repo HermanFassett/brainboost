@@ -52,12 +52,12 @@ function PostHandler () {
 		console.log(req.params);
     Users.findOne({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
       var vote = req.params.vote;
-			if (vote == 1) {
+			if (vote == "up") {
       	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
 					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
 				});
 			}
-			else if (vote == -1) {
+			else if (vote == "down") {
 				Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.down': 1}}, function(e, r) {
 					res.json(parseInt(r.votes.up) - parseInt(r.votes.down));
 				});
@@ -68,7 +68,7 @@ function PostHandler () {
 		console.log(req.params.id);
 		Posts.findOne({'_id': req.params.id }, function (err, result) {
 			if (err) { throw err; }
-			res.json(result.nbrClicks);
+			res.json(parseInt(result.votes.up) - parseInt(result.votes.down));
 		});
 	};
 }
