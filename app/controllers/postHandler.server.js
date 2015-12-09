@@ -51,7 +51,9 @@ function PostHandler () {
 	this.addVote = function(req, res) {
     Users.findOne({'profile.name': req.user.profile.name}, function(err, result) {
 			if (result.votes.indexOf(req.params.id) === -1) {
-				Users.findOneAndUpdate({'profile.name': req.user.profile.name}, {$push: {votes: req.params.id}});
+				Users.findOneAndUpdate({'profile.name': req.user.profile.name}, {$push: {votes: req.params.id}}, function(err) {
+					if (err) console.log(err);
+				});
 	      var vote = req.params.vote;
 				if (vote == "up") {
 	      	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
