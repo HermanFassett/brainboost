@@ -3,13 +3,12 @@
 (function () {
    var addButton = $('.btn-add');
    var deleteButton = $('.btn-delete');
-   var clickNbr = $('#click-nbr');
-   var boosts = $("#boosts") || null;
+   var voteNbr = $('#vote-nbr');
    var apiUrl = window.location.href;
 
    function updatePosts(data) {
-     console.log(data);
-      var postsObject = JSON.parse(data);
+      var votes = JSON.parse(data);
+      $(voteNbr).text(votes);
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));

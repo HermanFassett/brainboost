@@ -49,7 +49,7 @@ function PostHandler () {
 		});
 	};
 	this.addVote = function(req, res) {
-    Users.findOne({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
+    Users.findOneAndUpdate({'profile.name': req.user.name}, {$push: {votes: req.params.id}}, function(err, result) {
       var vote = req.params.vote;
 			if (vote == "up") {
       	Posts.findOneAndUpdate({'_id': req.params.id}, {$inc: {'votes.up': 1}}, function(e, r) {
@@ -65,7 +65,6 @@ function PostHandler () {
   }
 	this.getVotes = function (req, res) {
 		Posts.findOne({'_id': req.params.id }, function (err, result) {
-			console.log(result);
 			if (err) throw err;
 			res.json(parseInt(result.votes.up) - parseInt(result.votes.down));
 		});
