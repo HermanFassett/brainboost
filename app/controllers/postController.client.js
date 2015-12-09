@@ -27,10 +27,10 @@
    }
    function updateComments(data) {
      var comment = JSON.parse(data);
-     console.log(comment);
+     $(commentText).val("");
      $("#commentsBox").html("<div>" +
-                            "<h5>" + comment[0].comment + "</h5>" +
-                            "<h6>~" + comment[0].author + "<p class='text-muted text-right'>" + new Date(comment[0].date).toDateString() +
+                            "<h5>" + comment[comment.length - 1].comment + "</h5>" +
+                            "<h6>~" + comment[comment.length - 1].author + "<p class='text-muted text-right'>" + new Date(comment[comment.length - 1].date).toDateString() +
                             "</p></h6>" +
                             "</div>" +
                             $("#commentsBox").html());
