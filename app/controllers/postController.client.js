@@ -28,7 +28,6 @@
    function updateComments(data) {
      console.log(data);
      var comments = JSON.parse(data);
-
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));

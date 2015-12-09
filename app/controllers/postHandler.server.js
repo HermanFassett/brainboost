@@ -80,6 +80,7 @@ function PostHandler () {
 		});
 	};
 	this.addComment = function(req, res) {
+		console.log(req.params);
 		if (req.user) {
 			Posts.findOneAndUpdate( {'_id': req.params.id},
 			{ $push:
