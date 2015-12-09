@@ -21,9 +21,7 @@
     <% posts.forEach(function(post) { %>
       <div id="boosts" class="post animated zoomInUp">
         <div class="post-left">
-          <span class="glyphicon glyphicon-plus">
             <h4><%= post.votes.up - post.votes.down%></h4>
-          <span class="glyphicon glyphicon-minus">
         </div>
         <div class="post-right">
           <span class="glyphicon glyphicon-remove" ng-show="username.username == boost.author.name">
