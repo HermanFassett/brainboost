@@ -49,9 +49,9 @@ module.exports = function (app, passport) {
 
 	// Get boosts and brains
 	app.route('/boosts').get(postHandler.getBoosts);
-	app.route('/boosts/sort/:sort').get(postHandler.getPosts);
+	app.route('/boosts/sort/:sort').get(postHandler.getBoosts);
 	app.route('/brains').get(postHandler.getBrains);
-	app.route('/brains/sort/:sort').get(postHandler.getPosts);
+	app.route('/brains/sort/:sort').get(postHandler.getBrains);
 
 	// Get posts
 	app.route('/posts/:id').get(postHandler.getPost);
