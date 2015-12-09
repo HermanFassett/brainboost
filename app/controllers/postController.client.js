@@ -5,7 +5,7 @@
    var downButton = $('#btn-down');
    var deleteButton = $('#btn-delete');
    var commentButton = $('#btn-comment');
-   var commentText = $('#txt-comment').val();
+   var commentText = $('#txt-comment');
    var voteNbr = $('#vote-nbr');
    var apiUrl = window.location.href;
 
@@ -26,7 +26,6 @@
       chart.draw(data, options);
    }
    function updateComments(data) {
-     console.log(data);
      var comments = JSON.parse(data);
    }
 
@@ -43,8 +42,9 @@
       });
    });
    $(commentButton).click(function() {
-     ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment&text=" + commentText, function () {
-        ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment&text=" + commentText, updateComments);
+     console.log($(commentText).val());
+     ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment/" + $(commentText).val(), function () {
+        ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment/" + $(commentText).val(), updateComments);
      });
    });
    $(deleteButton).click(function() {
