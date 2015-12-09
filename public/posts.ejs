@@ -13,22 +13,16 @@
         Sort by <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="" ng-click="order('votes')">Votes</a></li>
-        <li><a href="" ng-click="order('date')">Date</a></li>
+        <li><a href="/<%=active + '/sort/votes'%>">Votes</a></li>
+        <li><a href="/<%=active + '/sort/dates'%>">Date</a></li>
       </ul>
     </div>
     <hr>
-    <% posts.forEach(function(post) { %>
-      <div id="boosts" class="post animated zoomInUp">
-        <div class="post-left">
-            <h4><%= post.votes.up - post.votes.down%></h4>
-        </div>
-        <a href="/posts/<%=post._id%>"><h1> <%=post.content.title%></h1></a><hr>
-        <p><%=post.content.idea%></p>
-        <p class="text-muted text-right"><%=post.date.toDateString()%></p>
-        <a href="/user/<%=post.author.name%>"><blockquote><%=post.author.name%></blockquote></a>
-      </div>
-    <% }); %>
+    <% if (sortby == "dates") { %>
+      <% include /partials/sortdate %>
+    <% } else if (sortby == "votes") { %>
+      <% include /partials/sortvote %>
+    <% } %>
   </div>
   <div class="container">
     <% include /partials/footer %>

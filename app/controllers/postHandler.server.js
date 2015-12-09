@@ -6,17 +6,32 @@ var path = process.cwd();
 function PostHandler () {
 	this.getPosts = function (req, res) {
 		Posts.find({}, function(err, result) {
-			res.render(path + '/public/posts.ejs', {posts:result, type: "All Posts"});
+			res.render(path + '/public/posts.ejs', {
+				posts: result,
+				type: "All Posts",
+				sortby: req.params.sort || "dates",
+				active: req.path.split("/")[1]
+			});
 		});
 	};
 	this.getBoosts = function(req, res) {
 		Posts.find({'type': 'boost'}, function(err, result) {
-			res.render(path + '/public/posts.ejs', {posts: result, type: "Boosts"});
+			res.render(path + '/public/posts.ejs', {
+				posts: result,
+				type: "Boosts",
+				sortby: req.params.sort || "dates",
+				active: req.path.split("/")[1]
+			});
 		});
 	}
 	this.getBrains = function(req, res) {
 		Posts.find({'type': 'brain'}, function(err, result) {
-			res.render(path + '/public/posts.ejs', {posts: result, type: "Brains"});
+			res.render(path + '/public/posts.ejs', {
+				posts: result,
+				type: "Brains",
+				sortby: req.params.sort || "dates",
+				active: req.path.split("/")[1]
+			});
 		});
 	}
 	this.getPost = function(req, res) {

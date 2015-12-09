@@ -49,11 +49,14 @@ module.exports = function (app, passport) {
 
 	// Get boosts and brains
 	app.route('/boosts').get(postHandler.getBoosts);
+	app.route('/boosts/sort/:sort').get(postHandler.getPosts);
 	app.route('/brains').get(postHandler.getBrains);
+	app.route('/brains/sort/:sort').get(postHandler.getPosts);
 
 	// Get posts
 	app.route('/posts/:id').get(postHandler.getPost);
 	app.route('/posts').get(postHandler.getPosts);
+	app.route('/posts/sort/:sort').get(postHandler.getPosts);
 
 	// Logged in user
 	app.route('/api/:id').get(isLoggedIn, function (req, res) {
