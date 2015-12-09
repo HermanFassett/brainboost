@@ -49,8 +49,8 @@
       });
    });
    $(commentButton).click(function() {
-     ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment/" + $(commentText).val(), function () {
-        ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment/" + $(commentText).val(), updateComments);
+     ajaxFunctions.ajaxRequest('POST', apiUrl + "/comment/" + encodeURIComponent($(commentText).val()), function () {
+        ajaxFunctions.ajaxRequest('GET', apiUrl + "/comment/" + encodeURIComponent($(commentText).val()), updateComments);
      });
    });
    $(deleteButton).click(function() {
