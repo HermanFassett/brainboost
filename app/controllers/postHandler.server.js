@@ -79,5 +79,21 @@ function PostHandler () {
 			res.json(result.votes);
 		});
 	};
+	this.addComment = function(req, res) {
+		if (req.user) {
+			Posts.findOneAndUpdate( {'_id': req.params.id},
+			{ $push:
+				{
+					comments: {
+						author: req.user.profile.name,
+						comment: req.params.comment,
+						date: new Date()
+					}
+				}}, function(err, result) {
+					if (err) console.log(err);
+					res.json(result.comments);
+			});
+		}
+	}
 }
 module.exports = PostHandler;

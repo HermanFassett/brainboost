@@ -4,6 +4,8 @@
    var upButton = $('#btn-up');
    var downButton = $('#btn-down');
    var deleteButton = $('#btn-delete');
+   var commentButton = $('#btn-comment');
+   var commentText = $('#txt-comment').val();
    var voteNbr = $('#vote-nbr');
    var apiUrl = window.location.href;
 
@@ -35,6 +37,11 @@
       ajaxFunctions.ajaxRequest('POST', apiUrl + "/down", function () {
          ajaxFunctions.ajaxRequest('GET', apiUrl + "/down", updatePosts);
       });
+   });
+   $(commentButton).click(function() {
+     ajaxFunctions.ajaxRequest('POST', apiUrl + "/post/" + commentText, function () {
+        ajaxFunctions.ajaxRequest('GET', apiUrl + "/post/" + commentText, updatePosts);
+     });
    });
    $(deleteButton).click(function() {
      window.location.assign(apiUrl + "/delete/post");
