@@ -124,8 +124,14 @@ module.exports = function (passport) {
 	      }
 	      User.findOne({ email: profile.emails[0].value }, function(err, existingEmailUser) {
 	        if (existingEmailUser) {
-	          console.log('There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.');
-	          done(err);
+	          console.log('There is already an account using this email address.');
+	          existingEmailUser.google = profile.id;
+		        existingEmailUser.tokens.push({ kind: 'google', accessToken: accessToken });
+		          user.profile.picture = user.profile.picture || profile._json.image.url;
+	          user.save(function(err) {
+	            console.log('Google account has been linked.');
+	            done(err, user);
+	          });
 	        } else {
 	          var user = new User();
 	          user.email = profile.emails[0].value;
