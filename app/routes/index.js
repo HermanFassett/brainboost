@@ -8,7 +8,15 @@ module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) return next();
-		else res.redirect('/login');
+		else {
+			if (req.params.vote || req.params.comment) {
+				res.contentType('application/json');
+				var data = JSON.stringify('/login')
+				res.header('Content-Length', data.length);
+				res.end(data);
+			}
+			else res.redirect('/login');
+		}
 	}
 
 	var postHandler = new PostHandler();

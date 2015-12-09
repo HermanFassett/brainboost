@@ -11,29 +11,36 @@
 
    function updatePosts(data) {
       var votes = JSON.parse(data);
-      $(voteNbr).text(votes.up-votes.down);
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Type');
-      data.addColumn('number', 'Votes');
-      data.addRows([
-        ['Upvotes', votes.up],
-        ['Downvotes', votes.down]
-      ]);
-      var options = {
-        'height': 300
-      };
-      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
+      if (votes === "/login") window.location = votes;
+      else {
+        $(voteNbr).text(votes.up-votes.down);
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Votes');
+        data.addRows([
+          ['Upvotes', votes.up],
+          ['Downvotes', votes.down]
+        ]);
+        var options = {
+          'height': 300
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
    }
    function updateComments(data) {
      var comment = JSON.parse(data);
-     $(commentText).val("");
-     $("#commentsBox").html("<div>" +
-                            "<h5>" + comment[comment.length - 1].comment + "</h5>" +
-                            "<h6>~" + comment[comment.length - 1].author + "<p class='text-muted text-right'>" + new Date(comment[comment.length - 1].date).toDateString() +
-                            "</p></h6>" +
-                            "</div>" +
-                            $("#commentsBox").html());
+     if (comment === "/login") window.location = comment;
+     else {
+       $(commentText).val("");
+       $("#commentsBox").html(
+         "<div>" +
+            "<h5>" + comment[comment.length - 1].comment + "</h5>" +
+            "<h6>~" + comment[comment.length - 1].author + "<p class='text-muted text-right'>" + new Date(comment[comment.length - 1].date).toDateString() +
+            "</p></h6>" +
+          "</div>" +
+          $("#commentsBox").html());
+      }
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePosts));
