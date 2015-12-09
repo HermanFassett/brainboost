@@ -26,7 +26,7 @@ function PostHandler () {
 			{
 				post: result,
 				type: result.type.charAt(0).toUpperCase() + result.type.slice(1),
-				owner: (req.user.profile.name == result.author.name)
+				owner: (req.user && req.user.profile.name == result.author.name)
 			});
 		});
 	}
