@@ -106,7 +106,6 @@ module.exports = function (passport) {
 	      } else {
 	        User.findById(req.user.id, function(err, user) {
 	          user.google = profile.id;
-						user.joinDate = new Date();
 	          user.tokens.push({ kind: 'google', accessToken: accessToken });
 	          user.profile.name = user.profile.name || profile.displayName;
 	          user.profile.gender = user.profile.gender || profile._json.gender;
@@ -130,6 +129,7 @@ module.exports = function (passport) {
 	        } else {
 	          var user = new User();
 	          user.email = profile.emails[0].value;
+						user.joinDate = new Date();
 	          user.google = profile.id;
 	          user.tokens.push({ kind: 'google', accessToken: accessToken });
 	          user.profile.name = profile.displayName;
