@@ -1,5 +1,5 @@
 (function () {
-   var navAvatar = $(".avatar-sm")[0] || null;
+   var navAvatar = $("#avatar-sm") || null;
    var navUnauth = $(".unauth") || null;
    var navAuth = $(".auth") || null;
    var navUser = $("#nav-user") || null;
