@@ -66,7 +66,7 @@ function PostHandler () {
 	this.getVotes = function (req, res) {
 		Posts.findOne({'_id': req.params.id }, function (err, result) {
 			if (err) throw err;
-			res.json(parseInt(result.votes.up) - parseInt(result.votes.down));
+			res.json(result.votes);
 		});
 	};
 }
