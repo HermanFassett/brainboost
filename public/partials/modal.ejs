@@ -1,0 +1,28 @@
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Share Post</h4>
+      </div>
+      <div class="modal-body">
+        <input id="shareText" value="hi" onclick="this.select()" style="width: 100%">
+        <a id="gplus" href="https://plus.google.com/share?url=" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+          <img src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/>
+        </a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#btn-share").click(function() {
+    $("#shareText").val(window.location.href);
+  });
+  $("#gplus").prop("href", "https://plus.google.com/share?url=" + window.location.href);
+</script>

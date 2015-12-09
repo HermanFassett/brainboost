@@ -36,6 +36,7 @@
       else $("#commentSection").hide();
     }
   </script>
+  <% include /partials/scripts %>
 </head>
 <body>
   <% include /partials/header %>
@@ -57,6 +58,10 @@
       <p><%= post.content.idea%></p>
       <p class="text-muted text-right"><%=post.date.toDateString()%></p>
       <div id="chart_div"></div>
+      <button type="button" class="fa fa-share share" data-toggle="modal" data-target="#shareModal" id="btn-share">
+        Share
+      </button>
+
       <a href="/user/<%=post.author.name%>"><blockquote><%=post.author.name%></blockquote></a>
       <div class="well">
         <div class="checkbox">
@@ -83,10 +88,10 @@
       </div>
     </div>
   </div>
-
+  <% include /partials/modal %>
   <div class="container">
     <% include /partials/footer %>
   </div>
-  <% include /partials/scripts %>
+
 </body>
 </html>
