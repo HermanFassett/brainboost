@@ -29,14 +29,11 @@ module.exports = function (app, passport) {
 	// Login page
 	app.route('/login').get(function (req, res) {
 		res.render(path + '/public/login.ejs');
-	}).post(passport.authenticate("local", {
-	  successRedirect: '/profile',
-	  failureRedirect: '/login'
-	}));
+	}).post(userHandler.postLogin);
 	// View signup page
 	app.route('/signup').get(function (req, res) {
 		res.render(path + '/public/signup.ejs');
-	});
+	}).post(userHandler.postSignup);
 	// Logout
 	app.route('/logout').get(function (req, res) {
 		req.logout();

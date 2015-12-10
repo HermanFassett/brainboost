@@ -1,4 +1,5 @@
 'use strict';
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -21,14 +22,15 @@ module.exports = function (passport) {
 	/**
 	 * Sign in using Email and Password.
 	 */
-	passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+	passport.use(new LocalStrategy({usernameField: 'email'}, function(email, password, done) {
 		console.log(email);
 	  email = email.toLowerCase();
 	  User.findOne({ email: email }, function(err, user) {
-			console.log(err + " " + user);
+			console.log(user);
 	    if (!user) {
 	      return done(null, false, { message: 'Email ' + email + ' not found'});
 	    }
+			console.log(user.password + " != " + password);
 	    user.comparePassword(password, function(err, isMatch) {
 	      if (isMatch) {
 	        return done(null, user);
@@ -45,52 +47,29 @@ module.exports = function (passport) {
 		callbackURL: configAuth.githubAuth.callbackURL
 	},
 	function (req, accessToken, refreshToken, profile, done) {
-		if (req.user) {
-			User.findOne({ github: profile.id }, function(err, existingUser) {
-				if (existingUser) {
-					console.log('There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.');
+		User.findOne({ github: profile.id }, function(err, existingUser) {
+			if (existingUser) {
+				return done(null, existingUser);
+			}
+			User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
+				if (existingEmailUser) {
 					done(err);
 				} else {
-					User.findById(req.user.id, function(err, user) {
-						user.github = profile.id;
-						user.tokens.push({ kind: 'github', accessToken: accessToken });
-						user.profile.name = user.profile.name || profile.displayName;
-						user.profile.picture = user.profile.picture || profile._json.avatar_url;
-						user.profile.location = user.profile.location || profile._json.location;
-						user.profile.website = user.profile.website || profile._json.blog;
-						user.save(function(err) {
-							console.log('GitHub account has been linked.');
-							done(err, user);
-						});
+					var user = new User();
+					user.email = profile._json.email;
+					user.joinDate = new Date();
+					user.github = profile.id;
+					user.tokens.push({ kind: 'github', accessToken: accessToken });
+					user.profile.name = profile.displayName;
+					user.profile.picture = profile._json.avatar_url;
+					user.profile.location = profile._json.location;
+					user.profile.website = profile._json.blog;
+					user.save(function(err) {
+						done(err, user);
 					});
 				}
 			});
-		} else {
-			User.findOne({ github: profile.id }, function(err, existingUser) {
-				if (existingUser) {
-					return done(null, existingUser);
-				}
-				User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
-					if (existingEmailUser) {
-						console.log('There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.');
-						done(err);
-					} else {
-						var user = new User();
-						user.email = profile._json.email;
-						user.joinDate = new Date();
-						user.github = profile.id;
-						user.tokens.push({ kind: 'github', accessToken: accessToken });
-						user.profile.name = profile.displayName;
-						user.profile.picture = profile._json.avatar_url;
-						user.profile.location = profile._json.location;
-						user.profile.website = profile._json.blog;
-						user.save(function(err) {
-							done(err, user);
-						});
-					}
-				});
-			});
-		}
+		});
 	}));
 	passport.use(new GoogleStrategy({
 		clientID: configAuth.googleAuth.clientID,
@@ -98,55 +77,32 @@ module.exports = function (passport) {
 		callbackURL: configAuth.googleAuth.callbackURL
 	},
 	function(req, accessToken, refreshToken, profile, done) {
-	  if (req.user) {
-	    User.findOne({ google: profile.id }, function(err, existingUser) {
-	      if (existingUser) {
-	        console.log('There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.');
-	        done(err);
-	      } else {
-	        User.findById(req.user.id, function(err, user) {
-	          user.google = profile.id;
-	          user.tokens.push({ kind: 'google', accessToken: accessToken });
-	          user.profile.name = user.profile.name || profile.displayName;
-	          user.profile.gender = user.profile.gender || profile._json.gender;
-	          user.profile.picture = user.profile.picture || profile._json.image.url;
-	          user.save(function(err) {
-	            console.log('Google account has been linked.');
-	            done(err, user);
-	          });
-	        });
-	      }
-	    });
-	  } else {
-	    User.findOne({ google: profile.id }, function(err, existingUser) {
-	      if (existingUser) {
-	        return done(null, existingUser);
-	      }
-	      User.findOne({ email: profile.emails[0].value }, function(err, existingEmailUser) {
-	        if (existingEmailUser) {
-	          console.log('There is already an account using this email address.');
-	          existingEmailUser.google = profile.id;
-		        existingEmailUser.tokens.push({ kind: 'google', accessToken: accessToken });
-	          existingEmailUser.save(function(err) {
-	            console.log('Google account has been linked.');
-	            done(err, existingEmailUser);
-	          });
-	        } else {
-	          var user = new User();
-	          user.email = profile.emails[0].value;
-						user.joinDate = new Date();
-	          user.google = profile.id;
-	          user.tokens.push({ kind: 'google', accessToken: accessToken });
-	          user.profile.name = profile.displayName;
-	          user.profile.gender = profile._json.gender;
-	          user.profile.picture = profile._json.image.url;
-	          user.save(function(err) {
-	            done(err, user);
-	          });
-	        }
-	      });
-	    });
-	  }
+    User.findOne({ google: profile.id }, function(err, existingUser) {
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+      User.findOne({ email: profile.emails[0].value }, function(err, existingEmailUser) {
+        if (existingEmailUser) {
+          existingEmailUser.google = profile.id;
+	        existingEmailUser.tokens.push({ kind: 'google', accessToken: accessToken });
+          existingEmailUser.save(function(err) {
+            done(err, existingEmailUser);
+          });
+        } else {
+          var user = new User();
+          user.email = profile.emails[0].value;
+					user.joinDate = new Date();
+          user.google = profile.id;
+          user.tokens.push({ kind: 'google', accessToken: accessToken });
+          user.profile.name = profile.displayName;
+          user.profile.gender = profile._json.gender;
+          user.profile.picture = profile._json.image.url;
+          user.save(function(err) {
+            done(err, user);
+          });
+        }
+      });
+    });
 	}));
 	/**
 	 * Authorization Required middleware.
