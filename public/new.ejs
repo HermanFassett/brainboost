@@ -3,6 +3,13 @@
 <head>
   <% include /partials/head %>
   <title>Brain Boost! - New Post</title>
+  <script>
+  function collapse(e) {
+    if ($(e).val() === "boost")
+      $("#poll").collapse("hide");
+    else $("#poll").collapse("show");
+  }
+  </script>
 </head>
 <body>
   <% include /partials/header %>
@@ -12,8 +19,8 @@
       <hr>
       <form class="form-horizontal" id="newpost" action="/send" enctype="application/x-www-form-urlencoded">
         <div class="form-group">
-          <select class="form-control" name="type">
-            <option value="brain" data-toggle="collapse" data-target="#poll">Brain</option>
+          <select class="form-control" name="type" onchange="collapse(this)">
+            <option value="brain">Brain</option>
             <option value="boost">Boost</option>
           </select>
         </div>
@@ -29,10 +36,10 @@
             <textarea type="text" name="idea" class="form-control" id="inputIdea" placeholder="Idea content..." required></textarea>
           </div>
         </div>
-        <div class="form-group collapse" id="poll">
+        <div class="form-group collapse in" id="poll">
           <label for="inputIdea" class="col-sm-2 control-label">Add a Poll</label>
           <div class="col-sm-10">
-            <textarea type="text" name="idea" class="form-control" id="inputIdea" placeholder="Idea content..." required></textarea>
+            <textarea type="text" name="poll" class="form-control" id="inputPoll" placeholder="Poll options separated by commas..."></textarea>
           </div>
         </div>
         <div class="form-group">

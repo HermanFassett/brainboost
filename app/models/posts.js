@@ -3,12 +3,13 @@ var mongoose = require('mongoose');
 var Post = new mongoose.Schema({
   type: String,
   content: {
-    title: String,
+    title: { type: String, required: true},
     idea: { type: String, trim: true }
   },
   author: {
     name: String
   },
+  poll: String,
   votes: {
     up: Number,
     down: Number

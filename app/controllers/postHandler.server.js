@@ -46,20 +46,22 @@ function PostHandler () {
 		});
 	}
 	this.addPost = function (req, res) {
-		console.log(req.query);
+		var type = req.query.type.toLowerCase();
 		var post = new Posts({
 			author: {name:req.user.profile.name},
 			content: {
 				title: req.query.title,
 				idea: req.query.idea
 			},
+			poll: req.query.poll,
 			votes: {
 				up: 0,
 				down: 0
 			},
 			date: new Date(),
-			type: req.query.type.toLowerCase()
+			type: type
 		});
+		console.log(post);
 		post.save(function(err) {
 			if (err) console.log("Error on save!");
 			else res.redirect('/posts/' + post._id);
