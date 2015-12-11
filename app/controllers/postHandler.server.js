@@ -46,6 +46,7 @@ function PostHandler () {
 		});
 	}
 	this.addPost = function (req, res) {
+		console.log(req.query);
 		var post = new Posts({
 			author: {name:req.user.profile.name},
 			content: {

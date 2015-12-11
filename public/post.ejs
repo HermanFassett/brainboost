@@ -54,7 +54,7 @@
         </div>
       <% } %>
       <h1> <%= post.content.title%></h1><hr>
-      <p><%= post.content.idea%></p>
+      <pre><%= post.content.idea%></pre>
       <p class="text-muted text-right"><%=post.date.toDateString()%></p>
       <div id="chart_div"></div>
       <button type="button" class="fa fa-share share" data-toggle="modal" data-target="#shareModal" id="btn-share">
