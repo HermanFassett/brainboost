@@ -1,5 +1,5 @@
 .post {
-  min-width: 100px;
+  min-width: 400px;
   max-width: 500px;
   min-height: 50px;
   padding: 25px;
@@ -28,6 +28,10 @@
 }
 .post-right span {
   cursor: pointer;
+}
+.post label {
+  float: left;
+  margin-left: 10px;
 }
 .well {
   padding: 0px 15px 0px 15px;

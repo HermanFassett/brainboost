@@ -30,6 +30,20 @@
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       chart.draw(data, options);
+      // Poll data
+      var polls = "<%=post.poll%>";
+      if (polls.length > 0) {
+        polls = polls.split(",");
+        var polldata = new google.visualization.DataTable();
+        polldata.addColumn('string', 'Type');
+        polldata.addColumn('number', 'Polls');
+        for (var i = 0; i < polls.length; i++) {
+          polldata.addRow([polls[i], 12]);
+        }
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('poll_div'));
+        chart.draw(polldata, options);
+      }
     }
     var commentShow = function(elem) {
       if (elem.checked) $("#commentSection").show();
@@ -60,7 +74,6 @@
       <button type="button" class="fa fa-share share" data-toggle="modal" data-target="#shareModal" id="btn-share">
         Share
       </button>
-
       <a href="/user/<%=post.author.name%>"><blockquote><%=post.author.name%></blockquote></a>
       <div class="well">
         <div class="checkbox">
@@ -88,6 +101,21 @@
         </div>
       </div>
     </div>
+    <% if (post.poll.length > 0) { %>
+      <div class="post">
+        <h1>Poll</h1><hr>
+        <div id="poll_div">
+        </div>
+        <div class="well">
+          <% var polls = post.poll.split(",") %>
+          <% for (var i = 0; i < polls.length; i++) { %>
+            <div class="radio">
+              <label><input type="radio" name="optradio"><%=polls[i]%></label>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
   </div>
   <% include /partials/scripts %>
   <% include /partials/modal %>
