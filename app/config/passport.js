@@ -48,9 +48,14 @@ module.exports = function (passport) {
 			if (existingUser) {
 				return done(null, existingUser);
 			}
+			console.log(profile._json.email);
 			User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
 				if (existingEmailUser) {
-					done(err);
+					existingEmailUser.github = profile.id;
+	        existingEmailUser.tokens.push({ kind: 'github', accessToken: accessToken });
+          existingEmailUser.save(function(err) {
+            done(err, existingEmailUser);
+          });
 				} else {
 					var user = new User();
 					user.email = profile._json.email;
@@ -59,8 +64,8 @@ module.exports = function (passport) {
 					user.tokens.push({ kind: 'github', accessToken: accessToken });
 					user.profile.name = profile.displayName;
 					user.profile.picture = profile._json.avatar_url;
-					user.profile.location = profile._json.location;
-					user.profile.website = profile._json.blog;
+					//user.profile.location = profile._json.location;
+					//user.profile.website = profile._json.blog;
 					user.save(function(err) {
 						done(err, user);
 					});
