@@ -123,10 +123,14 @@ function PostHandler () {
 	this.postPoll = function(req, res) {
 		var id = req.params.id;
 		var polloption = req.body.polloption;
-		Posts.findOneAndUpdate({'_id': id},
-		{ $push: {}},function(err, result) {
+		Posts.findOne({'_id': id}, function(err, result) {
 			if (err) throw err;
-
+			var poll = result.poll;
+			poll.forEach(function(a) {
+				if (a[0] == polloption) {
+					console.log(a);
+				}
+			});
 		});
 	}
 }
