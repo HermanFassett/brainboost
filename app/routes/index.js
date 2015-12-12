@@ -41,10 +41,7 @@ module.exports = function (app, passport) {
 	});
 	// View profile
 	app.route('/profile').get(isLoggedIn, userHandler.getActiveUser);
-	// View all users
-	app.route('/users').get(isLoggedIn, function (req, res) {
-		res.render(path + '/public/users.ejs');
-	});
+
 	// Get a user
 	app.route('/user/:name').get(userHandler.getUser);
 	// New post
@@ -62,7 +59,7 @@ module.exports = function (app, passport) {
 	app.route('/brains/sort/:sort').get(postHandler.getBrains);
 
 	// Get posts
-	app.route('/posts/:id').get(postHandler.getPost).post(postHandler.postPoll);
+	app.route('/posts/:id').get(postHandler.getPost).post(isLoggedIn, postHandler.postPoll);
 	app.route('/posts').get(postHandler.getPosts);
 	app.route('/posts/sort/:sort').get(postHandler.getPosts);
 

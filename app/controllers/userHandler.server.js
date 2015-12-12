@@ -34,20 +34,18 @@ function UserHandler () {
 		}
 	}
 	this.postLogin = function(req, res, next) {
-		console.log(req.body);
 	  passport.authenticate('local', function(err, user, info) {
 	    if (err) {
 	      return next(err);
 	    }
 	    if (!user) {
-	      console.log("HA Error: " + info.message);
+	      console.log(info.message);
 	      return res.redirect('/login');
 	    }
 	    req.logIn(user, function(err) {
 	      if (err) {
 	        return next(err);
 	      }
-	      //req.flash('success', { msg: 'Success! You are logged in.' });
 	      res.redirect(req.session.returnTo || '/');
 	    });
 	  })(req, res, next);

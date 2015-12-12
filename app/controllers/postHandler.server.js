@@ -61,7 +61,6 @@ function PostHandler () {
 			date: new Date(),
 			type: type
 		});
-		console.log(post);
 		post.save(function(err) {
 			if (err) console.log("Error on save!");
 			else res.redirect('/posts/' + post._id);
@@ -123,15 +122,29 @@ function PostHandler () {
 	this.postPoll = function(req, res) {
 		var id = req.params.id;
 		var polloption = req.body.polloption;
-		Posts.findOne({'_id': id}, function(err, result) {
-			if (err) throw err;
-			var poll = result.poll;
-			poll.forEach(function(a) {
-				if (a[0] == polloption) {
-					console.log(a);
-				}
-			});
+		Users.findOne({'profile.name': req.user.profile.name}, function(err, result) {
+			if (result.polls && result.polls.indexOf(id) === -1) {
+				Users.findOneAndUpdate({'profile.name': req.user.profile.name}, {$push: {polls: id}}, function(err) {
+					if (err) throw err;
+				});
+				Posts.findOne({'_id': id}, function(err, result) {
+					if (err) throw err;
+					var poll = result.poll, index = 0;
+					for (var i = 0; i < poll.length; i++) {
+						if (poll[i][0] == polloption) {
+							index = i;
+							break;
+						}
+					}
+					var update = {};
+					update['poll.' + index + '.1'] = 1;
+					Posts.findOneAndUpdate({'_id': id}, {$inc: update}, {upsert:true,safe:true}, function(err, result) {
+						if (err) throw err;
+					})
+				});
+			}
 		});
+		res.redirect("/posts/" + id);
 	}
 }
 module.exports = PostHandler;
