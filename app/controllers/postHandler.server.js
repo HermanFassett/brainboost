@@ -129,22 +129,31 @@ function PostHandler () {
 				});
 				Posts.findOne({'_id': id}, function(err, result) {
 					if (err) throw err;
-					var poll = result.poll, index = 0;
-					for (var i = 0; i < poll.length; i++) {
-						if (poll[i][0] == polloption) {
-							index = i;
-							break;
+					if (req.body.custom === "") {
+						var poll = result.poll, index = 0;
+						for (var i = 0; i < poll.length; i++) {
+							if (poll[i][0] == polloption) {
+								index = i;
+								break;
+							}
 						}
+						var update = {};
+						update['poll.' + index + '.1'] = 1;
+						Posts.findOneAndUpdate({'_id': id}, {$inc: update}, {upsert:true,safe:true}, function(err, result) {
+							if (err) throw err;
+							res.redirect("/posts/" + id);
+						})
 					}
-					var update = {};
-					update['poll.' + index + '.1'] = 1;
-					Posts.findOneAndUpdate({'_id': id}, {$inc: update}, {upsert:true,safe:true}, function(err, result) {
-						if (err) throw err;
-					})
+					else if (req.body.custom !== ""){
+						Posts.findOneAndUpdate({'_id': id}, {$push: {"poll": [req.body.custom, 1]}}, function(err, result) {
+							if (err) throw err;
+							res.redirect("/posts/" + id);
+						});
+					}
 				});
 			}
+			else res.redirect("/posts/" + id);
 		});
-		res.redirect("/posts/" + id);
 	}
 }
 module.exports = PostHandler;

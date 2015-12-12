@@ -113,10 +113,13 @@
                 <label class="post-poll"><input type="radio" name="polloption" value="<%=post.poll[i][0]%>"><%=post.poll[i][0]%></label>
               </div>
             <% } %>
+            <input type="text" name="custom" class="form-control post-poll" placeholder="Or create your own">
             <input type="submit" value="Submit" class="btn btn-default post-poll">
           </div>
         </form>
       </div>
+    <% } else { %>
+      <h4>Vote or reload for results.</h4>
     <% } %>
   </div>
   <% include /partials/scripts %>
