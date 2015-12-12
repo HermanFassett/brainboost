@@ -62,7 +62,7 @@ module.exports = function (app, passport) {
 	app.route('/brains/sort/:sort').get(postHandler.getBrains);
 
 	// Get posts
-	app.route('/posts/:id').get(postHandler.getPost);
+	app.route('/posts/:id').get(postHandler.getPost).post(postHandler.postPoll);
 	app.route('/posts').get(postHandler.getPosts);
 	app.route('/posts/sort/:sort').get(postHandler.getPosts);
 

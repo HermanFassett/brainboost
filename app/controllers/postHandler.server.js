@@ -53,7 +53,7 @@ function PostHandler () {
 				title: req.query.title,
 				idea: req.query.idea
 			},
-			poll: req.query.poll,
+			poll: req.query.poll.split(",").map(function(a){return [a, 0]}),
 			votes: {
 				up: 0,
 				down: 0
@@ -120,5 +120,14 @@ function PostHandler () {
 			res.json(result.comments);
 		});
 	};
+	this.postPoll = function(req, res) {
+		var id = req.params.id;
+		var polloption = req.body.polloption;
+		Posts.findOneAndUpdate({'_id': id},
+		{ $push: {}},function(err, result) {
+			if (err) throw err;
+
+		});
+	}
 }
 module.exports = PostHandler;

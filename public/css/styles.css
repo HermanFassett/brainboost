@@ -29,9 +29,9 @@
 .post-right span {
   cursor: pointer;
 }
-.post label {
+.post-poll {
   float: left;
-  margin-left: 10px;
+  margin: 5px 0px 10px 5px;
 }
 .well {
   padding: 0px 15px 0px 15px;

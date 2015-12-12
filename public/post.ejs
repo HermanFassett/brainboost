@@ -30,19 +30,19 @@
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       chart.draw(data, options);
-      // Poll data
-      var polls = "<%=post.poll%>";
+      // Poll chart
+      var polls = $('<textarea />').html("<%=post.poll%>").text();
       if (polls.length > 0) {
         polls = polls.split(",");
         var polldata = new google.visualization.DataTable();
         polldata.addColumn('string', 'Type');
         polldata.addColumn('number', 'Polls');
         for (var i = 0; i < polls.length; i++) {
-          polldata.addRow([polls[i], 12]);
+          if (i % 2 === 0)
+            polldata.addRow([polls[i], parseInt(polls[i+1])]);
         }
-        // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('poll_div'));
-        chart.draw(polldata, options);
+        chart.draw(polldata);
       }
     }
     var commentShow = function(elem) {
@@ -102,18 +102,20 @@
       </div>
     </div>
     <% if (post.poll.length > 0) { %>
-      <div class="post">
+      <div class="post animated zoomInUp">
         <h1>Poll</h1><hr>
         <div id="poll_div">
         </div>
-        <div class="well">
-          <% var polls = post.poll.split(",") %>
-          <% for (var i = 0; i < polls.length; i++) { %>
-            <div class="radio">
-              <label><input type="radio" name="optradio"><%=polls[i]%></label>
-            </div>
-          <% } %>
-        </div>
+        <form action="" method="post">
+          <div class="well">
+            <% for (var i = 0; i < post.poll.length; i++) { %>
+              <div class="radio">
+                <label class="post-poll"><input type="radio" name="polloption" value="<%=post.poll[i][0]%>"><%=post.poll[i][0]%></label>
+              </div>
+            <% } %>
+            <input type="submit" value="Submit" class="btn btn-default post-poll">
+          </div>
+        </form>
       </div>
     <% } %>
   </div>

@@ -9,7 +9,7 @@ var Post = new mongoose.Schema({
   author: {
     name: String
   },
-  poll: String,
+  poll: {type: Array, default: []},
   votes: {
     up: Number,
     down: Number
