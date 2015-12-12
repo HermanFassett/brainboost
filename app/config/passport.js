@@ -23,14 +23,11 @@ module.exports = function (passport) {
 	 * Sign in using Email and Password.
 	 */
 	passport.use(new LocalStrategy({usernameField: 'email'}, function(email, password, done) {
-		console.log(email);
 	  email = email.toLowerCase();
 	  User.findOne({ email: email }, function(err, user) {
-			console.log(user);
 	    if (!user) {
 	      return done(null, false, { message: 'Email ' + email + ' not found'});
 	    }
-			console.log(user.password + " != " + password);
 	    user.comparePassword(password, function(err, isMatch) {
 	      if (isMatch) {
 	        return done(null, user);
