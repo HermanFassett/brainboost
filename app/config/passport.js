@@ -73,6 +73,7 @@ module.exports = function (passport) {
 			}
 			else {
 				var name = profile.displayName || profile.username;
+				console.log(name);
 				User.findOne({ 'profile.name': name }, function(err, existingNameUser) {
 					if (existingNameUser) {
 						console.log(req.path);
