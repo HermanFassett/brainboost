@@ -93,6 +93,7 @@ module.exports = function (passport) {
 						user.profile.picture = profile._json.avatar_url;
 						console.log(user);
 						user.save(function(err) {
+							if (err) console.log(err);
 							done(err, user);
 						});
 					}
