@@ -49,28 +49,51 @@ module.exports = function (passport) {
 			if (existingUser) {
 				return done(null, existingUser);
 			}
-			User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
-				if (existingEmailUser) {
-					existingEmailUser.github = profile.id;
-	        existingEmailUser.tokens.push({ kind: 'github', accessToken: accessToken });
-          existingEmailUser.save(function(err) {
-            done(err, existingEmailUser);
-          });
-				} else {
-					var user = new User();
-					user.email = profile._json.email;
-					user.joinDate = new Date();
-					user.github = profile.id;
-					user.tokens.push({ kind: 'github', accessToken: accessToken });
-					user.profile.name = profile.displayName;
-					user.profile.picture = profile._json.avatar_url;
-					//user.profile.location = profile._json.location;
-					//user.profile.website = profile._json.blog;
-					user.save(function(err) {
-						done(err, user);
-					});
-				}
-			});
+			if (profile._json.email) {
+				User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
+					if (existingEmailUser) {
+						existingEmailUser.github = profile.id;
+		        existingEmailUser.tokens.push({ kind: 'github', accessToken: accessToken });
+	          existingEmailUser.save(function(err) {
+	            done(err, existingEmailUser);
+	          });
+					} else {
+						var user = new User();
+						user.email = profile._json.email;
+						user.joinDate = new Date();
+						user.github = profile.id;
+						user.tokens.push({ kind: 'github', accessToken: accessToken });
+						user.profile.name = profile.displayName;
+						user.profile.picture = profile._json.avatar_url;
+						user.save(function(err) {
+							done(err, user);
+						});
+					}
+				});
+			}
+			else {
+				User.findOne({ 'profile.name': profile.displayName }, function(err, existingNameUser) {
+					if (existingNameUser) {
+						console.log(req.path);
+						// existingNameUser.github = profile.id;
+		        // existingNameUser.tokens.push({ kind: 'github', accessToken: accessToken });
+	          // existingNameUser.save(function(err) {
+	          //   done(err, existingNameUser);
+	          // });
+					} else {
+						var user = new User();
+						user.email = profile._json.email;
+						user.joinDate = new Date();
+						user.github = profile.id;
+						user.tokens.push({ kind: 'github', accessToken: accessToken });
+						user.profile.name = profile.displayName;
+						user.profile.picture = profile._json.avatar_url;
+						user.save(function(err) {
+							done(err, user);
+						});
+					}
+				});
+			}
 		});
 	}));
 	passport.use(new GoogleStrategy({
