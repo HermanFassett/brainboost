@@ -45,7 +45,6 @@ module.exports = function (passport) {
 	},
 	function (req, accessToken, refreshToken, profile, done) {
 		User.findOne({ github: profile.id }, function(err, existingUser) {
-			console.log(profile);
 			if (existingUser) {
 				return done(null, existingUser);
 			}
@@ -73,16 +72,9 @@ module.exports = function (passport) {
 			}
 			else {
 				var name = profile.displayName || profile.username;
-				console.log(name);
 				User.findOne({ 'profile.name': name }, function(err, existingNameUser) {
-					console.log(existingNameUser);
 					if (existingNameUser) {
-						console.log(req);
-						// existingNameUser.github = profile.id;
-		        // existingNameUser.tokens.push({ kind: 'github', accessToken: accessToken });
-	          // existingNameUser.save(function(err) {
-	          //   done(err, existingNameUser);
-	          // });
+						done(err, false);
 					} else {
 						var user = new User();
 						user.email = profile._json.email || "";
@@ -91,7 +83,6 @@ module.exports = function (passport) {
 						user.tokens.push({ kind: 'github', accessToken: accessToken });
 						user.profile.name = name;
 						user.profile.picture = profile._json.avatar_url;
-						console.log(user);
 						user.save(function(err) {
 							if (err) console.log(err);
 							done(err, user);
