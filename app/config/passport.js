@@ -91,6 +91,7 @@ module.exports = function (passport) {
 						user.tokens.push({ kind: 'github', accessToken: accessToken });
 						user.profile.name = name;
 						user.profile.picture = profile._json.avatar_url;
+						console.log(user);
 						user.save(function(err) {
 							done(err, user);
 						});
