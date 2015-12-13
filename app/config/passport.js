@@ -75,6 +75,7 @@ module.exports = function (passport) {
 				var name = profile.displayName || profile.username;
 				console.log(name);
 				User.findOne({ 'profile.name': name }, function(err, existingNameUser) {
+					console.log(existingNameUser);
 					if (existingNameUser) {
 						console.log(req.path);
 						// existingNameUser.github = profile.id;
@@ -84,7 +85,7 @@ module.exports = function (passport) {
 	          // });
 					} else {
 						var user = new User();
-						user.email = profile._json.email;
+						user.email = profile._json.email || "";
 						user.joinDate = new Date();
 						user.github = profile.id;
 						user.tokens.push({ kind: 'github', accessToken: accessToken });
