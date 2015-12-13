@@ -72,7 +72,8 @@ module.exports = function (passport) {
 				});
 			}
 			else {
-				User.findOne({ 'profile.name': profile.displayName }, function(err, existingNameUser) {
+				var name = profile.displayName || profile.username;
+				User.findOne({ 'profile.name': name }, function(err, existingNameUser) {
 					if (existingNameUser) {
 						console.log(req.path);
 						// existingNameUser.github = profile.id;
@@ -86,7 +87,7 @@ module.exports = function (passport) {
 						user.joinDate = new Date();
 						user.github = profile.id;
 						user.tokens.push({ kind: 'github', accessToken: accessToken });
-						user.profile.name = profile.displayName;
+						user.profile.name = name;
 						user.profile.picture = profile._json.avatar_url;
 						user.save(function(err) {
 							done(err, user);
