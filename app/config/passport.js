@@ -45,10 +45,10 @@ module.exports = function (passport) {
 	},
 	function (req, accessToken, refreshToken, profile, done) {
 		User.findOne({ github: profile.id }, function(err, existingUser) {
+			console.log(profile);
 			if (existingUser) {
 				return done(null, existingUser);
 			}
-			console.log(profile);
 			User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
 				if (existingEmailUser) {
 					existingEmailUser.github = profile.id;
