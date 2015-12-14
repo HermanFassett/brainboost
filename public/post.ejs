@@ -54,9 +54,9 @@
 <body>
   <% include /partials/header %>
   <div class="container">
-    <h1 class="animated rollin"><%=type%></h1>
+    <h1 class="animated fadeIn"><%=type%></h1>
     <hr>
-    <div id="boosts" class="post animated zoomInUp">
+    <div id="boosts" class="post animated fadeInUp">
       <div class="post-left">
         <span class="glyphicon glyphicon-plus" id="btn-up"></span>
           <h4 id="vote-nbr"><%= post.votes.up - post.votes.down%></h4>
@@ -102,7 +102,7 @@
       </div>
     </div>
     <% if (post.poll.length > 0) { %>
-      <div class="post animated zoomInUp">
+      <div class="post animated fadeInUp">
         <h1>Poll</h1><hr>
         <div id="poll_div">
         </div>

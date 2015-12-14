@@ -7,7 +7,7 @@
 <body>
   <% include /partials/header %>
   <div class="container">
-    <h1 class="animated rollin"><%=type%></h1>
+    <h1 class="animated fadeIn"><%=type%></h1>
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Sort by <span class="caret"></span>
@@ -24,7 +24,7 @@
       <% include /partials/sortvote %>
     <% } %>
     <% posts.forEach(function(post) { %>
-      <div id="boosts" class="post animated zoomInUp">
+      <div id="boosts" class="post animated fadeInUp">
         <div class="post-left">
             <h4><%= post.votes.up - post.votes.down%></h4>
         </div>
